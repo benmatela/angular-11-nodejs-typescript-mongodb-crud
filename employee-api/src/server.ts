@@ -1,14 +1,28 @@
 import http from "http";
 import express from "express";
-import logging from "../util/config/logging";
-import config from "../util/config/config";
+import mongoose from "mongoose";
+
+import logging from "./util/config/logging";
+import config from "./util/config/config";
+import employeeRoutes from "./routes/employee.route";
 
 const NAMESPACE = "Server";
+
 const router = express();
 
 /** Parse the body of the request */
 router.use(express.urlencoded({ limit: "50mb", extended: false }));
 router.use(express.json());
+
+/** Connect to Mongo */
+mongoose
+  .connect(config.mongo.url, config.mongo.options)
+  .then((result) => {
+    logging.info(NAMESPACE, "Mongo Connected");
+  })
+  .catch((error) => {
+    logging.error(NAMESPACE, error.message, error);
+  });
 
 router.use((req, res, next) => {
   logging.info(
@@ -38,6 +52,9 @@ router.use((req, res, next) => {
   }
   next();
 });
+
+/** Routes */
+router.use("/api/v1/employee", employeeRoutes);
 
 /** Error handling */
 router.use((req, res, next) => {
