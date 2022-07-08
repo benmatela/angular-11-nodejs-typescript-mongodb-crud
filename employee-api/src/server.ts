@@ -1,6 +1,7 @@
 import http from "http";
 import express from "express";
 import mongoose from "mongoose";
+import cors from "cors";
 
 import logging from "./util/config/logging";
 import config from "./util/config/config";
@@ -13,12 +14,13 @@ const router = express();
 /** Parse the body of the request */
 router.use(express.urlencoded({ limit: "50mb", extended: false }));
 router.use(express.json());
+router.use(cors());
 
 /** Connect to Mongo */
 mongoose
   .connect(config.mongo.url, config.mongo.options)
   .then((result) => {
-    logging.info(NAMESPACE, "Mongo Connected");
+    logging.info(NAMESPACE, "Mongo connected successfully..");
   })
   .catch((error) => {
     logging.error(NAMESPACE, error.message, error);
@@ -40,7 +42,7 @@ router.use((req, res, next) => {
 
 /** Rules of our API */
 router.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:4200");
+  res.header("Access-Control-Allow-Origin", "localhost:4200");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept, Authorization, Multipart/Form-Data"

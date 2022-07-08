@@ -8,18 +8,13 @@ const findAll = async (req: Request, res: Response, next: NextFunction) => {
   logging.info(NAMESPACE, "findAll controller called.");
   try {
     const result = await employeeService.findAll();
-    return res.status(201).json({
-      result: result.data,
-      success: result.success,
-      error: null,
-      status: 201,
-    });
+    return res.status(200).json(result);
   } catch (error) {
     logging.error(NAMESPACE, "Error while calling findAll controller.", error);
     return res.status(500).json({
       result: [],
       success: false,
-      error: error,
+      error: String(error),
       status: 500,
     });
   }
