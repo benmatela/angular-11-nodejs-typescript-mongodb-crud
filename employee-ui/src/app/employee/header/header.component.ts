@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { IEmployee } from '../models/interface/employee.interface';
 
 @Component({
   selector: 'app-header',
@@ -6,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  @Input() numberOfEmployees: number = 0;
+  @Input() employees: IEmployee[] = [];
 
   constructor() { }
 

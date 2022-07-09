@@ -17,7 +17,7 @@ export class EmployeeComponent implements OnInit {
 
   ngOnInit(): void {
     this.employeeService.findAll();
-    this.employeeService.employeesResponse.subscribe(res => {
+    this.employeeService.employeesResponse.subscribe((res) => {
       if (res && res.status > 0) {
         this.employees = res.data;
         this.loading = false;
