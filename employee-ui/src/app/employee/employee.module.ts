@@ -6,11 +6,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { EmployeeRoutingModule } from './employee-routing.module';
 import { EmployeeComponent } from './employee.component';
 import { EmployeeService } from './employee.service';
+import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
   declarations: [
-    EmployeeComponent
+    EmployeeComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,
