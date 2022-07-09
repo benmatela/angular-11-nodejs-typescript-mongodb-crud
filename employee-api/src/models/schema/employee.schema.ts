@@ -1,8 +1,20 @@
 import mongoose, { Schema } from "mongoose";
+import helpers from "../../util/helpers";
+import { Characters } from "../enums/characters.enum";
 import IEmployee from "../interface/employee.interface";
 
 const EmployeeSchema: Schema = new Schema(
   {
+    _id: {
+      type: String,
+      required: true,
+      unique: false,
+      minlength: 6,
+      maxlength: 6,
+      index: true,
+      default: 
+        `${helpers.randomGenerator(2, Characters.ALPHABETS)}${helpers.randomGenerator(4, Characters.NUMBERS)}`
+    },
     firstName: {
       type: String,
       required: true,
@@ -21,15 +33,15 @@ const EmployeeSchema: Schema = new Schema(
       type: Number,
       required: true,
       unique: true,
-      minlength: 100,
-      maxlength: 100,
+      minlength: 10,
+      maxlength: 10,
     },
     emailAddress: {
       type: String,
       required: true,
       unique: true,
-      minlength: 255,
-      maxlength: 255,
+      minlength: 1,
+      maxlength: 100,
     },
     dateOfBirth: {
       type: String,
@@ -42,14 +54,14 @@ const EmployeeSchema: Schema = new Schema(
       type: String,
       required: true,
       unique: false,
-      minlength: 255,
+      minlength: 1,
       maxlength: 255,
     },
     skills: {
       type: String,
       required: false,
       unique: false,
-      minlength: 255,
+      minlength: 1,
       maxlength: 255,
     },
   },

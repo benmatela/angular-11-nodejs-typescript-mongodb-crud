@@ -1,0 +1,4 @@
+export enum Characters {
+    ALPHABETS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    NUMBERS = '0123456789'
+}
