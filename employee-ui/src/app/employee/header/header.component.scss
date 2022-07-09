@@ -1,8 +1,24 @@
 .action-btn {
     border-radius: 50px;
-    background-color: purple;
+    background-color: #7030a3;
     font-weight: bold;
     min-width: 250px;
     height: 50px;
     color: white;
+}
+
+.search {
+    width: 400px;
+}
+
+select{
+    color: white;
+    background-color: black;
+    border: none;
+}
+
+.add-icon {
+    color: black;
+    background-color: white;
+    border-radius: 100px;
 }

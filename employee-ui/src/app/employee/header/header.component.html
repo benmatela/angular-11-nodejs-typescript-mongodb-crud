@@ -2,11 +2,19 @@
     <div class="row">
         <div class="col-md-3">
             <h1>Employees</h1>
-            <p>No Employees</p>
+            <p *ngIf="numberOfEmployees === 0">No Employees</p>
+            <p *ngIf="numberOfEmployees > 0">There are {{numberOfEmployees}} employees</p>
         </div>
-        <div class="col-md-6"></div>
+        <div class="col-md-6 form-inline">
+            <ng-container *ngIf="numberOfEmployees > 0">
+                <input class="form-control search mb-4" placeholder="Search">
+                <select class="ml-2 mb-4 select custom-select form-control">
+                    <option>Filter By</option>
+                </select>
+            </ng-container>
+        </div>
         <div class="col-md-3">
-            <button class="btn action-btn">New Employee</button>
+            <button class="btn action-btn ml-2 mt-1"> <span class="add-icon">&nbsp;+&nbsp;</span> New Employee</button>
         </div>
     </div>
 </div>

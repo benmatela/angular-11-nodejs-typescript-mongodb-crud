@@ -11,6 +11,7 @@ export class EmployeeComponent implements OnInit {
   employees: IEmployee[] = [];
 
   loading: boolean = true;
+  logoUrl: string = 'assets/Icon.JPG';
 
   constructor(private employeeService: EmployeeService) {}
 
