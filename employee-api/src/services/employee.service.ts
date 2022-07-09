@@ -27,7 +27,7 @@ async function findAll(): Promise<IResponseWrapper<IEmployee[]>> {
 }
 
 async function create(employee: IEmployee): Promise<IResponseWrapper<IEmployee>> {
-  logging.info(NAMESPACE, "Create function called.");
+  logging.info(NAMESPACE, "Create function called.", JSON.stringify(employee));
   let responseWrapper = {} as IResponseWrapper<IEmployee>;
   try {
     await employeeSchema.create(employee).then((result) => {
@@ -53,33 +53,30 @@ async function update(employee: IEmployee): Promise<IResponseWrapper<IEmployee>>
   try {
     const employeeToUpdate = await employeeSchema.findById(employee._id);
     if (!employeeToUpdate) {
-      logging.error(NAMESPACE, `Employee with _id:'${employee._id}' not found.`);
+      logging.error(NAMESPACE, `Employee with { _id: '${employee._id}' } not found.`);
       responseWrapper.data = {} as IEmployee;
       responseWrapper.success = false;
       responseWrapper.status = 404;
-      responseWrapper.error = `Employee with _id:'${employee._id}' not found.`;
+      responseWrapper.error = `Employee with { _id: '${employee._id}' } not found.`;
       return responseWrapper;
     }
 
-    await employeeSchema
-      .findOneAndUpdate(
-        {
-          _id: employeeToUpdate._id,
-        },
-        {
-          $set: employee,
-        },
-        {
-          new: true,
-          useFindAndModify: false,
-        }
-      )
-      .then((result) => {
-        responseWrapper.data = result;
-        responseWrapper.success = true;
-        responseWrapper.status = 204;
-        responseWrapper.error = "";
-      });
+    const updatedEmployee = await employeeSchema.findOneAndUpdate(
+      {
+        _id: employeeToUpdate._id,
+      },
+      {
+        $set: employee,
+      },
+      {
+        new: true,
+        useFindAndModify: false,
+      }
+    );
+    responseWrapper.data = updatedEmployee;
+    responseWrapper.success = true;
+    responseWrapper.status = 200;
+    responseWrapper.error = "";
     return responseWrapper;
   } catch (error) {
     logging.error(this.NAMESPACE, "Error while calling Update function.", String(error));
@@ -91,4 +88,40 @@ async function update(employee: IEmployee): Promise<IResponseWrapper<IEmployee>>
   }
 }
 
-export default { findAll, create, update };
+async function remove(employeeId: string): Promise<IResponseWrapper<IEmployee>> {
+  logging.info(NAMESPACE, "Remove function called.", employeeId);
+  let responseWrapper = {} as IResponseWrapper<IEmployee>;
+  try {
+    const employeeToRemove = await employeeSchema.findById(employeeId);
+    if (!employeeToRemove) {
+      logging.error(NAMESPACE, `Employee with { _id: '${employeeId}' } not found.`);
+      responseWrapper.data = {} as IEmployee;
+      responseWrapper.success = false;
+      responseWrapper.status = 404;
+      responseWrapper.error = `Employee with { _id: '${employeeId}' } not found.`;
+      return responseWrapper;
+    } 
+
+    const removedEmployee = await employeeSchema.findByIdAndRemove(
+      { _id: employeeToRemove._id },
+      {
+        useFindAndModify: false,
+      }
+    );
+    responseWrapper.data = removedEmployee;
+    responseWrapper.success = true;
+    responseWrapper.status = 200;
+    responseWrapper.error = "";
+    return responseWrapper;
+  } catch (error) {
+    logging.error(this.NAMESPACE, "Error while calling Remove function.", String(error));
+    responseWrapper.data = {} as IEmployee;
+    responseWrapper.success = false;
+    responseWrapper.error = String(error);
+    responseWrapper.status = 500;
+    return responseWrapper;
+  }
+}
+
+
+export default { findAll, create, update, remove };
