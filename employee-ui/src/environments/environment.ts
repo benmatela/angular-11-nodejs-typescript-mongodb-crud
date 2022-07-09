@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  employeeAPI: "http://0.0.0.0/api/v1/employee"
+  employeeAPI: "http://0.0.0.0:3000/api/v1/employee"
 };
 
 /*
