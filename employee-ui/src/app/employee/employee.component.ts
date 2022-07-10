@@ -24,4 +24,11 @@ export class EmployeeComponent implements OnInit {
       }
     });
   }
+
+  closeNav() {
+    const nav = document.getElementById('sidenav');
+    if (nav) {
+      nav.style.width = '0';
+    }
+  }
 }

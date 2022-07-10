@@ -1,24 +1,32 @@
-<app-header [employees]="employees"></app-header>
+<div class="container">
 
-<ng-container #emptyList *ngIf="!loading && employees.length === 0">
-    <div class="container text-center">
-        <img [src]="logoUrl" height="500" width="500">
-        <h5 class="font-weight-bold">There is nothing here.</h5>
-        <h5>Create a new employee by clicking the<br><span class="font-weight-bold">New Employee</span> button to get
-            started.</h5>
-    </div>
-</ng-container>
+    <app-header [employees]="employees"></app-header>
 
-<ng-container *ngIf="loading">
-    <h3 class="text-center">Loading...</h3>
-</ng-container>
+    <ng-container #emptyList *ngIf="!loading && employees.length === 0">
+        <div class="text-center">
+            <img [src]="logoUrl" height="500" width="500">
+            <h5 class="font-weight-bold">There is nothing here.</h5>
+            <h5>Create a new employee by clicking the<br><span class="font-weight-bold">New Employee</span> button to
+                get
+                started.</h5>
+        </div>
+    </ng-container>
 
-<ng-container *ngIf="!loading && employees.length > 0">
-    <div class="container mt-2">
-        <ul class="list-group">
-            <li class="list-group-item" *ngFor="let employee of employees; let i = index;">
-                ({{i + 1}}).&nbsp;&nbsp;{{employee.firstName}}&nbsp;&nbsp;{{employee.lastName}}&nbsp;&nbsp;{{employee.contactNumber}}
-            </li>
-        </ul>
-    </div>
-</ng-container>
+    <ng-container *ngIf="loading">
+        <h3 class="text-center">Loading...</h3>
+    </ng-container>
+
+    <ng-container #list *ngIf="!loading && employees.length > 0">
+        <div class="mt-2">
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let employee of employees; let i = index;">
+                    ({{i+1}}).&nbsp;&nbsp;{{employee.firstName}}&nbsp;&nbsp;{{employee.lastName}}&nbsp;&nbsp;{{employee.contactNumber}}
+                </li>
+            </ul>
+        </div>
+    </ng-container>
+</div>
+
+<div id="sidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
+</div>

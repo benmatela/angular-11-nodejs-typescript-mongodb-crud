@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 import { IEmployee } from './models/interface/employee.interface';
@@ -14,7 +14,6 @@ export class EmployeeService implements OnDestroy {
   private readonly baseUrl = environment.employeeAPI;
 
   errorMessage: string = '';
-  successMessage: string = '';
 
   private employeesResponse$ = new BehaviorSubject<IResponseWrapper<IEmployee[]>>({
     data: [],
@@ -34,14 +33,25 @@ export class EmployeeService implements OnDestroy {
 
   constructor(private httpClient: HttpClient) {}
 
+  /**
+   * Keeps track of all Employees.
+   * @param response 
+   * @returns void
+   */
   private setEmployeesResponse(response: IResponseWrapper<IEmployee[]>): void {
     this.employeesResponseStore.response = response;
     this.employeesResponse$.next(response);
   }
 
+  /**
+   * Gets a list of all available Employees.
+   * 
+   * The result is stored in employeesResponse.
+   * @returns void
+   */
   findAll(): void {
     this.httpClient
-      .get<IResponseWrapper<IEmployee[]>>(this.baseUrl + `/find-all`, {})
+      .get<IResponseWrapper<IEmployee[]>>(this.baseUrl + '/find-all', {})
       .pipe(
         catchError((error) => {
           if (error.error instanceof ErrorEvent) {
@@ -58,8 +68,8 @@ export class EmployeeService implements OnDestroy {
   }
 
   /**
-   * Takes an HttpErrorResponse and creates user friendly errors
-   * @param error @type HttpErrorResponse
+   * Takes in a HttpErrorResponse and creates a user friendly error.
+   * @param error
    * @returns string
    */
   private getServerErrorMessage(error: HttpErrorResponse): string {

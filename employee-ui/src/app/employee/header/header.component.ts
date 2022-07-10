@@ -14,4 +14,10 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  openNav() {
+    const nav = document.getElementById('sidenav');
+    if (nav) {
+      nav.style.width = '400px';
+    }
+  }
 }
