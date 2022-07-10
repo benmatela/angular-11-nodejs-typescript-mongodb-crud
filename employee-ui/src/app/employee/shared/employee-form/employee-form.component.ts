@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup } from '@angular/forms';
 
 @Component({
@@ -6,11 +6,18 @@ import { AbstractControl, FormGroup } from '@angular/forms';
   templateUrl: './employee-form.component.html',
   styleUrls: ['./employee-form.component.scss']
 })
-export class EmployeeFormComponent {
+export class EmployeeFormComponent implements OnInit {
   @Input() formGroup = {} as FormGroup;
   @Input() pageName: string = '';
   @Input() editMode: boolean = false;
+  addressFormGroup: any;
 
+  ngOnInit(): void {
+    const address = this.formGroup.get('address');
+    if (address) {
+      this.addressFormGroup = address;
+    }
+  }
 
   /**
    * Get form controls
@@ -25,11 +32,11 @@ export class EmployeeFormComponent {
    * @param errorName 
    * @returns boolean
    */
-  public hasError = (controlName: string, errorName: string): boolean => {
+  public hasError = (formGroupName: FormGroup, controlName: string, errorName: string): boolean => {
     return (
-      this.formGroup.controls[controlName].hasError(errorName) &&
-      this.formGroup.controls[controlName].touched
+      formGroupName.controls[controlName].hasError(errorName) &&
+      formGroupName.controls[controlName].touched
     );
   };
-  
+
 }

@@ -22,11 +22,10 @@ export class CreateComponent implements OnInit {
       address: this.fb.group({
         streetAddress: [null, Validators.required],
         city: [null, Validators.required],
-        postalCode: [null, Validators.required, Validators.minLength(4), Validators.maxLength(4)],
+        postalCode: [null, Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{4}$")],
         country: [null, Validators.required],
       }),
     });
-
   }
 
   /**
