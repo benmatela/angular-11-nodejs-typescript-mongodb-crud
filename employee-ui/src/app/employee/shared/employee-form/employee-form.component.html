@@ -1,12 +1,59 @@
 <p>{{pageName}}</p>
 <p class="subheader">Basic Info</p>
-<div class="row">
-    <div class="col-md-4">
-        <label for="firstName">First Name</label>
-        <input type="text" class="form-control" id="firstName">
+<form autocomplete="off" [formGroup]="formGroup" class="justify-content-center">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" class="form-control" id="firstName">
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" class="form-control" id="lastName">
+            </div>
+        </div>
     </div>
-    <div class="col-md-6">
-        <label for="lastName">Last Name</label>
-        <input type="text" class="form-control" id="lastName">
+    <div class="form-group mt-2">
+        <label for="contactNumber">Contact Number</label>
+        <input type="number" class="form-control" id="contactNumber">
     </div>
-</div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email">
+    </div>
+    <div class="form-group">
+        <label for="dateOfBirth">Date Of Birth</label>
+        <input type="date" class="form-control col-md-6" id="dateOfBirth">
+    </div>
+
+    <p class="subheader">Address Info</p>
+
+    <div class="form-group">
+        <label for="streetAddress">Street Address</label>
+        <input type="text" class="form-control" id="streetAddress">
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" class="form-control" id="city">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="postalCode">Postal Code</label>
+                <input type="number" class="form-control" id="postalCode">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="country">Country</label>
+                <input type="text" class="form-control" id="country">
+            </div>
+        </div>
+    </div>
+
+    <p class="subheader">Skills</p>
+</form>
