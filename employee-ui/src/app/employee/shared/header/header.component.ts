@@ -6,13 +6,8 @@ import { IEmployee } from '../models/interface/employee.interface';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   @Input() employees: IEmployee[] = [];
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   openNav() {
     const nav = document.getElementById('sidenav');

@@ -5,55 +5,64 @@
         <div class="col-md-5">
             <div class="form-group">
                 <label for="firstName">First Name</label>
-                <input type="text" class="form-control" id="firstName">
+                <input type="text" class="form-control" id="firstName" formControlName="firstName">
+                <small class="text-danger" *ngIf="hasError('firstName', 'required')">First Name is required.</small>
             </div>
         </div>
         <div class="col-md-7">
             <div class="form-group">
                 <label for="lastName">Last Name</label>
-                <input type="text" class="form-control" id="lastName">
+                <input type="text" class="form-control" id="lastName" formControlName="lastName">
+                <small class="text-danger" *ngIf="hasError('lastName', 'required')">Last Name is required.</small>
             </div>
         </div>
     </div>
     <div class="form-group mt-2">
         <label for="contactNumber">Contact Number</label>
-        <input type="number" class="form-control" id="contactNumber">
+        <input type="number" class="form-control" id="contactNumber" formControlName="contactNumber">
+        <small class="text-danger" *ngIf="hasError('contactNumber', 'required')">Contact Number is required.</small>
+        <small class="text-danger" *ngIf="hasError('contactNumber', 'pattern')">Contact Number is not 10 digit.</small>
     </div>
     <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" class="form-control" id="email">
+        <input type="email" class="form-control" id="email" formControlName="email">
+        <small class="text-danger" *ngIf="hasError('email', 'email')">Email is invalid.</small>
+        <small class="text-danger" *ngIf="hasError('email', 'required')">Email is required.</small>
     </div>
     <div class="form-group">
         <label for="dateOfBirth">Date Of Birth</label>
-        <input type="date" class="form-control col-md-6" id="dateOfBirth">
+        <input type="date" class="form-control col-md-6" id="dateOfBirth" formControlName="dateOfBirth">
+        <small class="text-danger" *ngIf="hasError('dateOfBirth', 'required')">Date Of Birth is required.</small>
     </div>
 
     <p class="subheader">Address Info</p>
 
-    <div class="form-group">
-        <label for="streetAddress">Street Address</label>
-        <input type="text" class="form-control" id="streetAddress">
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label for="city">City</label>
-                <input type="text" class="form-control" id="city">
+    <form formGroupName="address">
+        <div class="form-group">
+            <label for="streetAddress">Street Address</label>
+            <input type="text" class="form-control" id="streetAddress" formControlName="streetAddress">
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" class="form-control" id="city" formControlName="city">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="postalCode">Postal Code</label>
+                    <input type="number" class="form-control" id="postalCode" formControlName="postalCode">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="country">Country</label>
+                    <input type="text" class="form-control" id="country" formControlName="country">
+                </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label for="postalCode">Postal Code</label>
-                <input type="number" class="form-control" id="postalCode">
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label for="country">Country</label>
-                <input type="text" class="form-control" id="country">
-            </div>
-        </div>
-    </div>
+    </form>
 
     <p class="subheader">Skills</p>
 </form>
