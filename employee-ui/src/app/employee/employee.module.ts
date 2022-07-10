@@ -6,13 +6,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { EmployeeRoutingModule } from './employee-routing.module';
 import { EmployeeComponent } from './employee.component';
 import { EmployeeService } from './employee.service';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './shared/header/header.component';
+import { CreateComponent } from './create/create.component';
+import { EmployeeFormComponent } from './shared/employee-form/employee-form.component';
 
 
 @NgModule({
   declarations: [
     EmployeeComponent,
-    HeaderComponent
+    HeaderComponent,
+    CreateComponent,
+    EmployeeFormComponent,
   ],
   imports: [
     CommonModule,

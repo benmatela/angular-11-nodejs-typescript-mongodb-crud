@@ -4,8 +4,8 @@ import { BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
-import { IEmployee } from './models/interface/employee.interface';
-import { IResponseWrapper } from './models/interface/response-wrapper.interface';
+import { IEmployee } from './shared/models/interface/employee.interface';
+import { IResponseWrapper } from './shared/models/interface/response-wrapper.interface';
 
 @Injectable({
   providedIn: 'root',
