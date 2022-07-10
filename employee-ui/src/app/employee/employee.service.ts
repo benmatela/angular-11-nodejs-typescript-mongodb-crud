@@ -12,7 +12,6 @@ import { IResponseWrapper } from './shared/models/interface/response-wrapper.int
 })
 export class EmployeeService implements OnDestroy {
   private readonly baseUrl = environment.employeeAPI;
-
   errorMessage: string = '';
 
   private employeesResponse$ = new BehaviorSubject<IResponseWrapper<IEmployee[]>>({

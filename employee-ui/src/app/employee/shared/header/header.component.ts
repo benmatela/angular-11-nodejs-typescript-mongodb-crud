@@ -12,7 +12,7 @@ export class HeaderComponent {
   openNav() {
     const nav = document.getElementById('sidenav');
     if (nav) {
-      nav.style.width = '400px';
+      nav.style.width = '450px';
     }
   }
 }

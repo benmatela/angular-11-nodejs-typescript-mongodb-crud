@@ -11,12 +11,19 @@ export class EmployeeFormComponent implements OnInit {
   @Input() pageName: string = '';
   @Input() editMode: boolean = false;
   addressFormGroup: any;
+  skillFormGroup: any;
 
   ngOnInit(): void {
     const address = this.formGroup.get('address');
     if (address) {
       this.addressFormGroup = address;
     }
+    const skills = this.formGroup.get('skills');
+    if (address) {
+      this.skillFormGroup = skills;
+    }
+
+    console.log(this.skillFormGroup);
   }
 
   /**

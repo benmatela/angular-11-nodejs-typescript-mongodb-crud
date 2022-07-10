@@ -70,4 +70,29 @@
     </form>
 
     <p class="subheader">Skills</p>
+
+    <div class="row" formArrayName="skillFormGroup" *ngFor="let skill of skillFormGroup.controls; let i = index">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="skill">Skill</label>
+                <input formControlName='skill' id="{{'skill'+i}}" type="text" class="form-control mb-4">
+                <small class="text-danger" *ngIf="hasError(skillFormGroup,'skill', 'required')">Skill is required.</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="{{'yearsOfExperience'+i}}">Yrs Exp</label>
+                <input formControlName='yearsOfExperience' id="{{'yearsOfExperience'+i}}" type="text" class="form-control mb-4">
+                <small class="text-danger" *ngIf="hasError(skillFormGroup,'yearsOfExperience', 'required')">Years Of Experience is required.</small>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="{{'seniorityRating'+i}}">Seniority Rating</label>
+                <input formControlName='seniorityRating' id="{{'seniorityRating'+i}}" type="text" class="form-control mb-4">
+                <small class="text-danger" *ngIf="hasError(skillFormGroup,'seniorityRating', 'required')">Seniority Rating is required.</small>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
 </form>

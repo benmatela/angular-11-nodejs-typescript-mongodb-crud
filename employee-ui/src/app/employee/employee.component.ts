@@ -9,7 +9,6 @@ import { IEmployee } from './shared/models/interface/employee.interface';
 })
 export class EmployeeComponent implements OnInit {
   employees: IEmployee[] = [];
-
   loading: boolean = true;
   logoUrl: string = 'assets/Icon.JPG';
 
