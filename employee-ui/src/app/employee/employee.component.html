@@ -1,6 +1,6 @@
 <div class="container">
 
-    <app-header [employees]="employees"></app-header>
+    <app-header [employees]="employees" [employeeStore]='employeeStore' (searchResultEvent)="receiveSearchResult($event)"></app-header>
 
     <ng-container #emptyList *ngIf="!loading && employees.length === 0">
         <div class="text-center">

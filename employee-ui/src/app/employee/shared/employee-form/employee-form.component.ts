@@ -1,5 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { EmployeeService } from '../../employee.service';
 import { IEmployee } from '../models/interface/employee.interface';
@@ -7,7 +13,7 @@ import { IEmployee } from '../models/interface/employee.interface';
 @Component({
   selector: 'app-employee-form',
   templateUrl: './employee-form.component.html',
-  styleUrls: ['./employee-form.component.scss']
+  styleUrls: ['./employee-form.component.scss'],
 })
 export class EmployeeFormComponent implements OnInit {
   @Input() formGroup = {} as FormGroup;
@@ -17,11 +23,14 @@ export class EmployeeFormComponent implements OnInit {
   selectedEmployee = {} as IEmployee;
   faTrash = faTrash;
 
-  constructor(private fb: FormBuilder, private employeeService: EmployeeService) {}
+  constructor(
+    private fb: FormBuilder,
+    private employeeService: EmployeeService
+  ) {}
 
   ngOnInit(): void {
-    this.employeeService.selectedEmployee.subscribe(res => {
-      if (res &&  res._id) {
+    this.employeeService.selectedEmployee.subscribe((res) => {
+      if (res && res._id) {
         this.selectedEmployee = res;
       }
     });
@@ -35,20 +44,24 @@ export class EmployeeFormComponent implements OnInit {
   }
 
   get skills(): FormArray {
-    return <FormArray> this.formGroup.get('skills');
+    return <FormArray>this.formGroup.get('skills');
   }
 
   get address(): FormGroup {
-    return <FormGroup> this.formGroup.get('address');
+    return <FormGroup>this.formGroup.get('address');
   }
 
   /**
    * Checks for control errors
-   * @param controlName 
-   * @param errorName 
+   * @param controlName
+   * @param errorName
    * @returns boolean
    */
-  public hasError = (formGroupName: FormGroup, controlName: string, errorName: string): boolean => {
+  public hasError = (
+    formGroupName: FormGroup,
+    controlName: string,
+    errorName: string
+  ): boolean => {
     return (
       formGroupName.controls[controlName].hasError(errorName) &&
       formGroupName.controls[controlName].touched
@@ -57,12 +70,16 @@ export class EmployeeFormComponent implements OnInit {
 
   /**
    * Checks for control errors on skills array
-   * @param index 
-   * @param controlName 
-   * @param errorName 
+   * @param index
+   * @param controlName
+   * @param errorName
    * @returns boolean
    */
-  public skillHasError = (group: any, controlName: string, errorName: string): boolean => {
+  public skillHasError = (
+    group: any,
+    controlName: string,
+    errorName: string
+  ): boolean => {
     return (
       group.controls[controlName].hasError(errorName) &&
       group.controls[controlName].touched
@@ -71,10 +88,10 @@ export class EmployeeFormComponent implements OnInit {
 
   createSkill(): FormGroup {
     return this.fb.group({
-      skill: [null, Validators.required],
-      yearsOfExperience: [null, Validators.required],
-      seniorityRating: [null, Validators.required]
-    })
+      skill: ['', Validators.required],
+      yearsOfExperience: [0, Validators.required],
+      seniorityRating: ['', Validators.required],
+    });
   }
 
   onAddNewSkill() {
@@ -127,5 +144,4 @@ export class EmployeeFormComponent implements OnInit {
       nav.style.width = '0';
     }
   }
-
 }

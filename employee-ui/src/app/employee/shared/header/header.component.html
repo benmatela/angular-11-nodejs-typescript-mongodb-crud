@@ -6,8 +6,8 @@
             <p *ngIf="employees.length > 0">There are {{employees.length}} employees</p>
         </div>
         <div class="col-md-6 form-inline">
-            <ng-container *ngIf="employees.length > 0">
-                <input class="form-control search mb-4" placeholder="Search">
+            <ng-container *ngIf="employeeStore.length > 0">
+                <input class="form-control search mb-4" [(ngModel)]="searchItem" (keyup)="onSearch()" placeholder="Search">
                 <select class="ml-2 mb-4 select custom-select form-control">
                     <option>Filter By</option>
                 </select>
