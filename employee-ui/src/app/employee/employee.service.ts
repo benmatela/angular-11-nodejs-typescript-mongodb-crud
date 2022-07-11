@@ -32,11 +32,11 @@ export class EmployeeService implements OnDestroy {
   public readonly employeesResponse = this.employeesResponse$.asObservable();
 
   // Selected Employee store
-  private selectedEmployeeResponse$ = new BehaviorSubject<IEmployee>({} as IEmployee);
-  private selectedEmployeeResponseStore: { selectedEmployee: IEmployee } = {
+  private selectedEmployee$ = new BehaviorSubject<IEmployee>({} as IEmployee);
+  private selectedEmployeeStore: { selectedEmployee: IEmployee } = {
     selectedEmployee: {} as IEmployee
   };
-  public readonly selectedEmployeeResponse = this.selectedEmployeeResponse$.asObservable();
+  public readonly selectedEmployee = this.selectedEmployee$.asObservable();
 
   constructor(private httpClient: HttpClient) {}
 
@@ -55,9 +55,9 @@ export class EmployeeService implements OnDestroy {
    * @param selectedEmployee 
    * @returns void
    */
-  public setSelectedEmployeeResponse(selectedEmployee: IEmployee): void {
-    this.selectedEmployeeResponseStore.selectedEmployee = selectedEmployee;
-    this.selectedEmployeeResponse$.next(selectedEmployee);
+  public setSelectedEmployee(selectedEmployee: IEmployee): void {
+    this.selectedEmployeeStore.selectedEmployee = selectedEmployee;
+    this.selectedEmployee$.next(selectedEmployee);
   }
 
   /**
@@ -165,6 +165,6 @@ export class EmployeeService implements OnDestroy {
 
   ngOnDestroy(): void {
     this.employeesResponse$.unsubscribe();
-    this.selectedEmployeeResponse$.unsubscribe();
+    this.selectedEmployee$.unsubscribe();
   }
 }

@@ -27,7 +27,7 @@ export class EmployeeComponent implements OnInit {
 
   onUpdate(selectedEmployee: IEmployee) {
     if (selectedEmployee) {
-      this.employeeService.setSelectedEmployeeResponse(selectedEmployee);
+      this.employeeService.setSelectedEmployee(selectedEmployee);
       this.editMode = true;
       this.openNav();
     }

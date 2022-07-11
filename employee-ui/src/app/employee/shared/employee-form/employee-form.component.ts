@@ -20,7 +20,7 @@ export class EmployeeFormComponent implements OnInit {
   constructor(private fb: FormBuilder, private employeeService: EmployeeService) {}
 
   ngOnInit(): void {
-    this.employeeService.selectedEmployeeResponse.subscribe(res => {
+    this.employeeService.selectedEmployee.subscribe(res => {
       if (res &&  res._id) {
         this.selectedEmployee = res;
       }
@@ -60,7 +60,7 @@ export class EmployeeFormComponent implements OnInit {
    * @param index 
    * @param controlName 
    * @param errorName 
-   * @returns 
+   * @returns boolean
    */
   public skillHasError = (group: any, controlName: string, errorName: string): boolean => {
     return (
@@ -91,7 +91,7 @@ export class EmployeeFormComponent implements OnInit {
       const newEmployee = {} as IEmployee;
       newEmployee.firstName = String(formValue.firstName);
       newEmployee.lastName = String(formValue.lastName);
-      newEmployee.contactNumber = String(formValue.contactNumber);
+      newEmployee.contactNumber = Number(formValue.contactNumber);
       newEmployee.dateOfBirth = String(formValue.dateOfBirth);
       newEmployee.emailAddress = String(formValue.email);
       newEmployee.address = JSON.stringify(formValue.address);
