@@ -9,6 +9,13 @@
 
 .search {
     width: 400px;
+    color: white;
+    background-color: #767070;
+}
+
+::placeholder { 
+    color: white;
+    opacity: 1; 
 }
 
 select{

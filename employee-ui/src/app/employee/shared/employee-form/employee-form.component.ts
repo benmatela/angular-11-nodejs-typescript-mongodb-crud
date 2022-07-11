@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-employee-form',
@@ -10,26 +11,26 @@ export class EmployeeFormComponent implements OnInit {
   @Input() formGroup = {} as FormGroup;
   @Input() pageName: string = '';
   @Input() editMode: boolean = false;
-  addressFormGroup: any;
+  faTrash = faTrash;
 
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    const address = this.formGroup.get('address');
-    if (address) {
-      this.addressFormGroup = address;
-    }
-  
     if (!this.editMode) {
       this.skills.push(this.createSkill());
     }
   }
 
-  /**
-   * Get form controls
-   */
-   get f(): { [key: string]: AbstractControl } {
+  get formGroupControls(): { [key: string]: AbstractControl } {
     return this.formGroup.controls;
+  }
+
+  get skills(): FormArray {
+    return <FormArray> this.formGroup.get('skills');
+  }
+
+  get address(): FormGroup {
+    return <FormGroup> this.formGroup.get('address');
   }
 
   /**
@@ -59,10 +60,6 @@ export class EmployeeFormComponent implements OnInit {
     );
   };
 
-  get skills(): FormArray{
-    return <FormArray> this.formGroup.get('skills');
-  }
-
   createSkill(): FormGroup {
     return this.fb.group({
       skill: [null, Validators.required],
@@ -73,6 +70,10 @@ export class EmployeeFormComponent implements OnInit {
 
   onAddNewSkill() {
     this.skills.controls.push(this.createSkill());
+  }
+
+  onRemoveSkill(index: number) {
+    this.skills.controls.splice(index, 1);
   }
 
 }
