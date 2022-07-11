@@ -76,7 +76,8 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="skill">Skill</label>
-                    <input formControlName='skill' id="{{'skill'+i}}" type="text" class="form-control mb-4">
+                    <input formControlName='skill' id="{{'skill'+i}}" type="text" class="form-control mb-4"
+                    (change)="onSkillValueChange($event)">
                     <small class="text-danger" *ngIf="skillHasError(s,'skill', 'required')">Required.</small>
                 </div>
             </div>
@@ -84,14 +85,15 @@
                 <div class="form-group">
                     <label for="{{'yearsOfExperience'+i}}">Yrs Exp</label>
                     <input formControlName='yearsOfExperience' min="0" id="{{'yearsOfExperience'+i}}" type="number"
-                        class="form-control mb-4">
+                        class="form-control mb-4" (change)="onSkillValueChange($event)">
                     <small class="text-danger" *ngIf="skillHasError(s,'yearsOfExperience', 'required')">Required.</small>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="{{'seniorityRating'+i}}">Seniority Rating</label>
-                    <select formControlName="seniorityRating" id="{{'seniorityRating'+i}}" class="form-control mb-4">
+                    <select formControlName="seniorityRating" id="{{'seniorityRating'+i}}" class="form-control mb-4"
+                    (change)="onSkillValueChange($event)">
                         <option value="Junior">Junior</option>
                         <option value="Intermediate">Intermediate</option>
                         <option value="Senior">Senior</option>

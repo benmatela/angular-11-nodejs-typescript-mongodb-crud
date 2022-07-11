@@ -19,6 +19,9 @@ export class HeaderComponent {
     }
   }
 
+  /**
+   * Search and emit result to employees component.
+   */
   onSearch() {
     this.employees = this.employeeStore.filter((r) => {
       return (
@@ -33,4 +36,5 @@ export class HeaderComponent {
     }
     this.searchResultEvent.emit(this.employees);
   }
+
 }

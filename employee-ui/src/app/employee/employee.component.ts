@@ -27,8 +27,11 @@ export class EmployeeComponent implements OnInit {
     });
   }
 
+  /**
+   * Get search result from the header component.
+   * @param searchResult 
+   */
   receiveSearchResult(searchResult: IEmployee[]) {
-    console.log(searchResult);
     this.employees = searchResult;
   }
 

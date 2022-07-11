@@ -102,11 +102,7 @@ export class UpdateComponent implements OnInit, AfterViewChecked {
    * @param seniorityRating
    * @returns FormGroup
    */
-  createSkill(
-    skill: string,
-    yearsOfExperience: number,
-    seniorityRating: string
-  ): FormGroup {
+  createSkill(skill: string, yearsOfExperience: number, seniorityRating: string): FormGroup {
     return this.fb.group({
       skill: [skill, Validators.required],
       yearsOfExperience: [yearsOfExperience, Validators.required],

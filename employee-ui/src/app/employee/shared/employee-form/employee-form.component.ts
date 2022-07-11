@@ -57,11 +57,7 @@ export class EmployeeFormComponent implements OnInit {
    * @param errorName
    * @returns boolean
    */
-  public hasError = (
-    formGroupName: FormGroup,
-    controlName: string,
-    errorName: string
-  ): boolean => {
+  public hasError = (formGroupName: FormGroup, controlName: string, errorName: string): boolean => {
     return (
       formGroupName.controls[controlName].hasError(errorName) &&
       formGroupName.controls[controlName].touched
@@ -75,11 +71,7 @@ export class EmployeeFormComponent implements OnInit {
    * @param errorName
    * @returns boolean
    */
-  public skillHasError = (
-    group: any,
-    controlName: string,
-    errorName: string
-  ): boolean => {
+  public skillHasError = (group: any, controlName: string, errorName: string): boolean => {
     return (
       group.controls[controlName].hasError(errorName) &&
       group.controls[controlName].touched
@@ -89,17 +81,28 @@ export class EmployeeFormComponent implements OnInit {
   createSkill(): FormGroup {
     return this.fb.group({
       skill: ['', Validators.required],
-      yearsOfExperience: [0, Validators.required],
+      yearsOfExperience: ['', Validators.required],
       seniorityRating: ['', Validators.required],
     });
   }
 
+  /**
+   * Check Skills FormArray validation.
+   * @param $event 
+   */
+  onSkillValueChange($event: any) {
+    this.skills.updateValueAndValidity()
+  }
+
   onAddNewSkill() {
     this.skills.controls.push(this.createSkill());
+    this.skills.updateValueAndValidity()
   }
 
   onRemoveSkill(index: number) {
     this.skills.controls.splice(index, 1);
+    this.formGroup.controls['skills'].value.splice(index, 1);
+    this.skills.updateValueAndValidity()
   }
 
   onCreateNewEmployee() {
