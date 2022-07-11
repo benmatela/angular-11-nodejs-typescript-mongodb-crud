@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-employee-form',
@@ -11,19 +11,18 @@ export class EmployeeFormComponent implements OnInit {
   @Input() pageName: string = '';
   @Input() editMode: boolean = false;
   addressFormGroup: any;
-  skillFormGroup: any;
+
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     const address = this.formGroup.get('address');
     if (address) {
       this.addressFormGroup = address;
     }
-    const skills = this.formGroup.get('skills');
-    if (address) {
-      this.skillFormGroup = skills;
+  
+    if (!this.editMode) {
+      this.skills.push(this.createSkill());
     }
-
-    console.log(this.skillFormGroup);
   }
 
   /**
@@ -46,8 +45,34 @@ export class EmployeeFormComponent implements OnInit {
     );
   };
 
+  /**
+   * Checks for control errors on skills array
+   * @param index 
+   * @param controlName 
+   * @param errorName 
+   * @returns 
+   */
+  public skillHasError = (group: any, controlName: string, errorName: string): boolean => {
+    return (
+      group.controls[controlName].hasError(errorName) &&
+      group.controls[controlName].touched
+    );
+  };
+
   get skills(): FormArray{
     return <FormArray> this.formGroup.get('skills');
+  }
+
+  createSkill(): FormGroup {
+    return this.fb.group({
+      skill: [null, Validators.required],
+      yearsOfExperience: [null, Validators.required],
+      seniorityRating: [null, Validators.required]
+    })
+  }
+
+  onAddNewSkill() {
+    this.skills.controls.push(this.createSkill());
   }
 
 }

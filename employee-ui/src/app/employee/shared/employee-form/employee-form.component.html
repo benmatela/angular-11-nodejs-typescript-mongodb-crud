@@ -1,102 +1,122 @@
 <p>{{pageName}}</p>
 <form autocomplete="off" [formGroup]="formGroup" class="justify-content-center">
     <p class="subheader">Basic Info</p>
-    
     <div class="row">
         <div class="col-md-5">
             <div class="form-group">
                 <label for="firstName">First Name</label>
-                <input type="text" class="form-control" id="firstName" formControlName="firstName">
-                <small class="text-danger" *ngIf="hasError(formGroup,'firstName', 'required')">First Name is required.</small>
+                <input type="text" class="form-control form-control-sm" id="firstName" formControlName="firstName">
+                <small class="text-danger" *ngIf="hasError(formGroup,'firstName', 'required')">First Name is
+                    required.</small>
             </div>
         </div>
         <div class="col-md-7">
             <div class="form-group">
                 <label for="lastName">Last Name</label>
-                <input type="text" class="form-control" id="lastName" formControlName="lastName">
-                <small class="text-danger" *ngIf="hasError(formGroup,'lastName', 'required')">Last Name is required.</small>
+                <input type="text" class="form-control form-control-sm" id="lastName" formControlName="lastName">
+                <small class="text-danger" *ngIf="hasError(formGroup,'lastName', 'required')">Last Name is
+                    required.</small>
             </div>
         </div>
     </div>
     <div class="form-group mt-2">
         <label for="contactNumber">Contact Number</label>
-        <input type="number" class="form-control" id="contactNumber" formControlName="contactNumber">
-        <small class="text-danger" *ngIf="hasError(formGroup,'contactNumber', 'required')">Contact Number is required.</small>
-        <small class="text-danger" *ngIf="hasError(formGroup,'contactNumber', 'pattern')">Contact Number is not 10 digit.</small>
+        <input type="number" class="form-control form-control-sm" id="contactNumber" formControlName="contactNumber">
+        <small class="text-danger" *ngIf="hasError(formGroup,'contactNumber', 'required')">Contact Number is
+            required.</small>
+        <small class="text-danger" *ngIf="hasError(formGroup,'contactNumber', 'pattern')">Contact Number is not 10
+            digit.</small>
     </div>
     <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" formControlName="email">
+        <input type="email" class="form-control form-control-sm" id="email" formControlName="email">
         <small class="text-danger" *ngIf="hasError(formGroup,'email', 'email')">Email is invalid.</small>
         <small class="text-danger" *ngIf="hasError(formGroup,'email', 'required')">Email is required.</small>
     </div>
     <div class="form-group">
         <label for="dateOfBirth">Date Of Birth</label>
         <input type="date" class="form-control col-md-6" id="dateOfBirth" formControlName="dateOfBirth">
-        <small class="text-danger" *ngIf="hasError(formGroup,'dateOfBirth', 'required')">Date Of Birth is required.</small>
+        <small class="text-danger" *ngIf="hasError(formGroup,'dateOfBirth', 'required')">Date Of Birth is
+            required.</small>
     </div>
 
     <p class="subheader">Address Info</p>
-
     <form formGroupName="address">
         <div class="form-group">
             <label for="streetAddress">Street Address</label>
-            <input type="text" class="form-control" id="streetAddress" formControlName="streetAddress">
-            <small class="text-danger" *ngIf="hasError(addressFormGroup,'streetAddress', 'required')">Street Address is required.</small>
+            <input type="text" class="form-control form-control-sm" id="streetAddress" formControlName="streetAddress">
+            <small class="text-danger" *ngIf="hasError(addressFormGroup,'streetAddress', 'required')">Street Address is
+                required.</small>
         </div>
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="city">City</label>
-                    <input type="text" class="form-control" id="city" formControlName="city">
-                    <small class="text-danger" *ngIf="hasError(addressFormGroup,'city', 'required')">City is required.</small>
+                    <input type="text" class="form-control form-control-sm" id="city" formControlName="city">
+                    <small class="text-danger" *ngIf="hasError(addressFormGroup,'city', 'required')">City is
+                        required.</small>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="postalCode">Postal Code</label>
-                    <input type="number" class="form-control" id="postalCode" formControlName="postalCode">
-                    <small class="text-danger" *ngIf="hasError(addressFormGroup,'postalCode', 'required')">Postal Code is required.</small>
-                    <small class="text-danger" *ngIf="hasError(addressFormGroup,'postalCode', 'pattern')">Postal Code is not 10 digit.</small>
+                    <input type="number" class="form-control form-control-sm" id="postalCode"
+                        formControlName="postalCode">
+                    <small class="text-danger" *ngIf="hasError(addressFormGroup,'postalCode', 'required')">Postal Code
+                        is required.</small>
+                    <small class="text-danger" *ngIf="hasError(addressFormGroup,'postalCode', 'pattern')">Postal Code is
+                        not 10 digit.</small>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="country">Country</label>
-                    <input type="text" class="form-control" id="country" formControlName="country">
-                    <small class="text-danger" *ngIf="hasError(addressFormGroup,'country', 'required')">Country is required.</small>
+                    <input type="text" class="form-control form-control-sm" id="country" formControlName="country">
+                    <small class="text-danger" *ngIf="hasError(addressFormGroup,'country', 'required')">Country is
+                        required.</small>
                 </div>
             </div>
         </div>
     </form>
 
     <p class="subheader">Skills</p>
-
     <div formArrayName="skills" *ngFor="let s of skills.controls; let i = index">
         <div class="row" [formGroupName]="i">
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="skill">Skill</label>
                     <input formControlName='skill' id="{{'skill'+i}}" type="text" class="form-control mb-4">
-                    <!-- <small class="text-danger" *ngIf="hasError(skills,'skill', 'required')">Skill is required.</small> -->
+                    <small class="text-danger" *ngIf="skillHasError(s,'skill', 'required')">Required.</small>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="{{'yearsOfExperience'+i}}">Yrs Exp</label>
-                    <input formControlName='yearsOfExperience' id="{{'yearsOfExperience'+i}}" type="text" class="form-control mb-4">
-                    <!-- <small class="text-danger" *ngIf="hasError(skills,'yearsOfExperience', 'required')">Years Of Experience is required.</small> -->
+                    <input formControlName='yearsOfExperience' id="{{'yearsOfExperience'+i}}" type="text"
+                        class="form-control mb-4">
+                    <small class="text-danger"
+                        *ngIf="skillHasError(s,'yearsOfExperience', 'required')">Required.</small>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="{{'seniorityRating'+i}}">Seniority Rating</label>
-                    <input formControlName="seniorityRating" id="{{'seniorityRating'+i}}" type="text" class="form-control mb-4">
-                    <!-- <small class="text-danger" *ngIf="hasError(s,'seniorityRating', 'required')">Seniority Rating is required.</small> -->
+                    <select formControlName="seniorityRating" id="{{'seniorityRating'+i}}" class="form-control mb-4">
+                        <option value="Junior">Junior</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Senior">Senior</option>
+                    </select>
+                    <small class="text-danger" *ngIf="skillHasError(s,'seniorityRating', 'required')">Required.</small>
                 </div>
             </div>
             <div class="col-md-2"></div>
         </div>
-       
+    </div>
+
+    <button class="form-control mb-4" (click)="onAddNewSkill()">+ Add New Skill</button>
+
+    <div class="text-right">
+        <button class="btn save-btn ml-2 mt-1 mr-2 mb-4"> <span class="add-icon">&nbsp;+&nbsp;</span> Save and Add
+            <br>&nbsp;New Employee</button>
     </div>
 </form>

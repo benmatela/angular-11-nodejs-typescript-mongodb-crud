@@ -25,35 +25,8 @@ export class CreateComponent implements OnInit {
         postalCode: [null, Validators.required],
         country: [null, Validators.required],
       }),
-      skills: new FormArray([this.createSkill()], Validators.required)
+      skills: new FormArray([], Validators.required)
     });
-
-    this.skills.controls.forEach(res => {
-      console.log(res.value);
-    });
-  }
-
-  createSkill(): FormGroup {
-    return this.fb.group({
-      skill: [null, Validators.required],
-      yearsOfExperience: [null, Validators.required],
-      seniorityRating: [null, Validators.required]
-    })
-  }
-
-  addSkill() {
-    this.skills.controls.push(this.createSkill());
-  }
-
-  get skills(): FormArray {
-    return <FormArray> this.createEmployeeForm.get('skills');
-  }
-
-  /**
-   * Get form controls
-   */
-  get f(): { [key: string]: AbstractControl } {
-    return this.createEmployeeForm.controls;
   }
 
 }
