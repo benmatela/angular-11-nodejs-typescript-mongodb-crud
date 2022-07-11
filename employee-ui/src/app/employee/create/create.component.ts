@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create',
@@ -25,23 +25,27 @@ export class CreateComponent implements OnInit {
         postalCode: [null, Validators.required],
         country: [null, Validators.required],
       }),
-      skills: this.fb.array([this.createSkill()],Validators.required)
+      skills: new FormArray([this.createSkill()], Validators.required)
+    });
+
+    this.skills.controls.forEach(res => {
+      console.log(res.value);
     });
   }
 
-  createSkill():FormGroup{
+  createSkill(): FormGroup {
     return this.fb.group({
-      skill: [null,Validators.required],
-      yearsOfExperience: [null,Validators.required],
-      seniorityRating: [null,Validators.required]
+      skill: [null, Validators.required],
+      yearsOfExperience: [null, Validators.required],
+      seniorityRating: [null, Validators.required]
     })
   }
 
   addSkill() {
-    this.skills.push(this.createSkill());
+    this.skills.controls.push(this.createSkill());
   }
 
-  get skills(): FormArray{
+  get skills(): FormArray {
     return <FormArray> this.createEmployeeForm.get('skills');
   }
 

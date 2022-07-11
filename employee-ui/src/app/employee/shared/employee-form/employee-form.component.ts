@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-employee-form',
@@ -45,5 +45,9 @@ export class EmployeeFormComponent implements OnInit {
       formGroupName.controls[controlName].touched
     );
   };
+
+  get skills(): FormArray{
+    return <FormArray> this.formGroup.get('skills');
+  }
 
 }
