@@ -11,6 +11,7 @@ export class EmployeeComponent implements OnInit {
   employees: IEmployee[] = [];
   loading: boolean = true;
   logoUrl: string = 'assets/Icon.JPG';
+  editMode: boolean = false;
 
   constructor(private employeeService: EmployeeService) {}
 
@@ -24,7 +25,23 @@ export class EmployeeComponent implements OnInit {
     });
   }
 
+  onUpdate(selectedEmployee: IEmployee) {
+    if (selectedEmployee) {
+      this.employeeService.setSelectedEmployeeResponse(selectedEmployee);
+      this.editMode = true;
+      this.openNav();
+    }
+  }
+
+  openNav() {
+    const nav = document.getElementById('sidenav');
+    if (nav) {
+      nav.style.width = '450px';
+    }
+  }
+
   closeNav() {
+    this.editMode = false;
     const nav = document.getElementById('sidenav');
     if (nav) {
       nav.style.width = '0';

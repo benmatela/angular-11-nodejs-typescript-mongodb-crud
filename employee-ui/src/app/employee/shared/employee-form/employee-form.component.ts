@@ -13,11 +13,18 @@ export class EmployeeFormComponent implements OnInit {
   @Input() formGroup = {} as FormGroup;
   @Input() pageName: string = '';
   @Input() editMode: boolean = false;
+
+  selectedEmployee = {} as IEmployee;
   faTrash = faTrash;
 
   constructor(private fb: FormBuilder, private employeeService: EmployeeService) {}
 
   ngOnInit(): void {
+    this.employeeService.selectedEmployeeResponse.subscribe(res => {
+      if (res &&  res._id) {
+        this.selectedEmployee = res;
+      }
+    });
     if (!this.editMode) {
       this.skills.push(this.createSkill());
     }
@@ -78,7 +85,7 @@ export class EmployeeFormComponent implements OnInit {
     this.skills.controls.splice(index, 1);
   }
 
-  onCreateEmployee() {
+  onCreateNewEmployee() {
     if (this.formGroup.valid) {
       const formValue = this.formGroup.value;
       const newEmployee = {} as IEmployee;

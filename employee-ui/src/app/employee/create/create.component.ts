@@ -19,10 +19,7 @@ export class CreateComponent implements OnInit {
     this.createEmployeeForm = this.fb.group({
       firstName: [null, [Validators.required]],
       lastName: [null, [Validators.required]],
-      contactNumber: [
-        null,
-        [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{9}$')],
-      ],
+      contactNumber: [null, [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{9}$')]],
       email: [null, [Validators.email, Validators.required]],
       dateOfBirth: [null, [Validators.required]],
       address: this.fb.group({
