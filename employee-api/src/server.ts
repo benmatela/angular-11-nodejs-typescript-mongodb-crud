@@ -1,5 +1,5 @@
 import http from "http";
-import express from "express";
+import express, { Application } from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 
@@ -9,12 +9,12 @@ import employeeRoutes from "./routes/employee.route";
 
 const NAMESPACE = "Server";
 
-const router = express();
+const app: Application = express();
 
 /** Parse the body of the request */
-router.use(express.urlencoded({ limit: "50mb", extended: false }));
-router.use(express.json());
-router.use(cors());
+app.use(express.urlencoded({ limit: "50mb", extended: false }));
+app.use(express.json());
+app.use(cors());
 
 /** Connect to Mongo */
 mongoose
@@ -26,7 +26,7 @@ mongoose
     logging.error(NAMESPACE, error.message, error);
   });
 
-router.use((req, res, next) => {
+app.use((req, res, next) => {
   logging.info(
     NAMESPACE,
     `METHOD: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}]`
@@ -41,7 +41,7 @@ router.use((req, res, next) => {
 });
 
 /** Rules of our API */
-router.use((req, res, next) => {
+app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "http://localhost:4200");
   res.header(
     "Access-Control-Allow-Headers",
@@ -56,10 +56,10 @@ router.use((req, res, next) => {
 });
 
 /** Routes */
-router.use("/api/v1/employee", employeeRoutes);
+app.use("/api/v1/employee", employeeRoutes);
 
 /** Error handling */
-router.use((req, res, next) => {
+app.use((req, res, next) => {
   const error = new Error("Not found");
   res.status(404).json({
     message: error.message,
@@ -67,10 +67,12 @@ router.use((req, res, next) => {
   });
 });
 
-const httpServer = http.createServer(router);
+const httpServer = http.createServer(app);
 httpServer.listen(config.server.port, () =>
   logging.info(
     NAMESPACE,
     `Server is running on ${config.server.hostname}:${config.server.port}`
   )
 );
+
+export default { httpServer };
