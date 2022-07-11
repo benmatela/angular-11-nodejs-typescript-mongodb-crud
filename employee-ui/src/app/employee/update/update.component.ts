@@ -1,22 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
 @Component({
-  selector: 'app-create',
+  selector: 'app-update',
   template: `<app-employee-form
+    [editMode]="true"
     [pageName]="pageName"
-    [formGroup]="createEmployeeForm"
+    [formGroup]="updateEmployeeForm"
   ></app-employee-form>`,
-  styleUrls: ['./create.component.scss'],
+  styleUrls: ['./update.component.scss'],
 })
-export class CreateComponent implements OnInit {
-  pageName: string = 'New Employee';
-  createEmployeeForm = {} as FormGroup;
+export class UpdateComponent implements OnInit {
+  pageName: string = 'Edit Employee';
+  updateEmployeeForm = {} as FormGroup;
 
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.createEmployeeForm = this.fb.group({
+    this.updateEmployeeForm = this.fb.group({
       firstName: [null, [Validators.required]],
       lastName: [null, [Validators.required]],
       contactNumber: [

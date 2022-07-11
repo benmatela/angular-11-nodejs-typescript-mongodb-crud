@@ -11,6 +11,7 @@ import { EmployeeService } from './employee.service';
 import { HeaderComponent } from './shared/header/header.component';
 import { CreateComponent } from './create/create.component';
 import { EmployeeFormComponent } from './shared/employee-form/employee-form.component';
+import { UpdateComponent } from './update/update.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { EmployeeFormComponent } from './shared/employee-form/employee-form.comp
     HeaderComponent,
     CreateComponent,
     EmployeeFormComponent,
+    UpdateComponent,
   ],
   imports: [
     CommonModule,

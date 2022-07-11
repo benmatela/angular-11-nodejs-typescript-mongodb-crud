@@ -32,9 +32,10 @@ async function create(employee: IEmployee): Promise<IResponseWrapper<IEmployee>>
   try {
     employee._id = `${helpers.randomGenerator(2, Characters.ALPHABETS)}${helpers.randomGenerator(4, Characters.NUMBERS)}`;
     const existingId = await employeeSchema.findById(employee._id);
-    if (!existingId) {
+    if (existingId) {
       employee._id = `${helpers.randomGenerator(2, Characters.ALPHABETS)}${helpers.randomGenerator(4, Characters.NUMBERS)}`
     }
+    
     await employeeSchema.create(employee).then((result) => {
       responseWrapper.data = result;
       responseWrapper.success = true;
@@ -58,11 +59,11 @@ async function update(employee: IEmployee): Promise<IResponseWrapper<IEmployee>>
   try {
     const employeeToUpdate = await employeeSchema.findById(employee._id);
     if (!employeeToUpdate) {
-      logging.error(NAMESPACE, `Employee with { _id: '${employee._id}' } not found.`);
       responseWrapper.data = {} as IEmployee;
       responseWrapper.success = false;
       responseWrapper.status = 404;
       responseWrapper.error = `Employee with { _id: '${employee._id}' } not found.`;
+      logging.error(NAMESPACE, responseWrapper.error);
       return responseWrapper;
     }
 
