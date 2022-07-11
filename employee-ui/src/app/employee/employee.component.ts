@@ -15,7 +15,7 @@ export class EmployeeComponent implements OnInit {
   constructor(private employeeService: EmployeeService) {}
 
   ngOnInit(): void {
-    this.employeeService.findAll();
+    this.employeeService.list();
     this.employeeService.employeesResponse.subscribe((res) => {
       if (res && res.status > 0) {
         this.employees = res.data;

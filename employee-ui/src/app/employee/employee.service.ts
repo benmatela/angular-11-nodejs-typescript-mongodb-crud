@@ -48,7 +48,7 @@ export class EmployeeService implements OnDestroy {
    * The result is stored in employeesResponse.
    * @returns void
    */
-  findAll(): void {
+  list(): void {
     this.httpClient
       .get<IResponseWrapper<IEmployee[]>>(this.baseUrl + '/find-all', {})
       .pipe(
@@ -63,6 +63,33 @@ export class EmployeeService implements OnDestroy {
       )
       .subscribe(res => {
         this.setEmployeesResponse(res);
+      });
+  }
+
+  /**
+   * Creates a new Employee.
+   * 
+   * Updates employeesResponse on completion.
+   * @param employee 
+   * @returns void
+   */
+  create(employee: IEmployee): void {
+    this.httpClient
+      .post<IResponseWrapper<IEmployee[]>>(this.baseUrl + '/create', employee)
+      .pipe(
+        catchError((error) => {
+          if (error.error instanceof ErrorEvent) {
+            this.errorMessage = `Error: ${error.error.message}`;
+          } else {
+            this.errorMessage = this.getServerErrorMessage(error);
+          }
+          throw new Error(this.errorMessage);
+        })
+      )
+      .subscribe(res => {
+        if (res.success) {
+          this.list();
+        }
       });
   }
 

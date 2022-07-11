@@ -111,7 +111,8 @@
     <button class="form-control mb-4" (click)="onAddNewSkill()">+ Add New Skill</button>
 
     <div class="text-right">
-        <button class="btn save-btn ml-2 mt-1 mr-2 mb-4" *ngIf="!editMode" [disabled]="formGroup.invalid"> 
+        <button class="btn save-btn ml-2 mt-1 mr-2 mb-4" *ngIf="!editMode" [disabled]="formGroup.invalid"
+        (click)="onCreateEmployee()"> 
             <span class="add-icon">&nbsp;+&nbsp;</span> Save and Add
             <br>&nbsp;New Employee
         </button>

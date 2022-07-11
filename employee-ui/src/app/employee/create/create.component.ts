@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create',
@@ -16,7 +16,7 @@ export class CreateComponent implements OnInit {
     this.createEmployeeForm = this.fb.group({
       firstName: [null, [Validators.required]],
       lastName: [null, [Validators.required]],
-      contactNumber: [null, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      contactNumber: [null, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{9}$")]],
       email: [null, [Validators.email, Validators.required]],
       dateOfBirth: [null, [Validators.required]],
       address: this.fb.group({

@@ -4,7 +4,7 @@ export interface IEmployee {
 	updatedAt?: string;
   firstName: string;
   lastName: string;
-  contactNumber: number;
+  contactNumber: string;
   emailAddress: string;
   dateOfBirth: string;
   address: string;

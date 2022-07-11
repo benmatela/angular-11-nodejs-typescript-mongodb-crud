@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { EmployeeService } from '../../employee.service';
+import { IEmployee } from '../models/interface/employee.interface';
 
 @Component({
   selector: 'app-employee-form',
@@ -13,7 +15,7 @@ export class EmployeeFormComponent implements OnInit {
   @Input() editMode: boolean = false;
   faTrash = faTrash;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private employeeService: EmployeeService) {}
 
   ngOnInit(): void {
     if (!this.editMode) {
@@ -74,6 +76,23 @@ export class EmployeeFormComponent implements OnInit {
 
   onRemoveSkill(index: number) {
     this.skills.controls.splice(index, 1);
+  }
+
+  onCreateEmployee() {
+    if (this.formGroup.valid) {
+      const formValue = this.formGroup.value;
+      const newEmployee = {} as IEmployee;
+      newEmployee.firstName = String(formValue.firstName);
+      newEmployee.lastName = String(formValue.lastName);
+      newEmployee.contactNumber = String(formValue.contactNumber);
+      newEmployee.dateOfBirth = String(formValue.dateOfBirth);
+      newEmployee.emailAddress = String(formValue.email);
+      newEmployee.address = JSON.stringify(formValue.address);
+      newEmployee.skills = JSON.stringify(formValue.skills);
+
+      this.employeeService.create(newEmployee);
+      this.formGroup.reset();
+    }
   }
 
 }
