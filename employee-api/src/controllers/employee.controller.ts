@@ -5,13 +5,13 @@ import logging from "../util/config/logging";
 
 const NAMESPACE = "Employee Controller";
 
-const findAll = async (req: Request, res: Response, next: NextFunction) => {
-  logging.info(NAMESPACE, "FindAll called.");
+const list = async (req: Request, res: Response, next: NextFunction) => {
+  logging.info(NAMESPACE, "List called.");
   try {
-    const result = await employeeService.findAll();
+    const result = await employeeService.list();
     return res.status(result.status).json(result);
   } catch (error) {
-    logging.error(NAMESPACE, "Error while calling FindAll.", String(error));
+    logging.error(NAMESPACE, "Error while calling List.", String(error));
     return res.status(500).json({
       result: [],
       success: false,
@@ -72,4 +72,4 @@ const remove = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default { findAll, create, update, remove };
+export default { list, create, update, remove };

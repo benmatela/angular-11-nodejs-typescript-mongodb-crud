@@ -50,7 +50,7 @@ export class EmployeeService implements OnDestroy {
    */
   list(): void {
     this.httpClient
-      .get<IResponseWrapper<IEmployee[]>>(this.baseUrl + '/find-all', {})
+      .get<IResponseWrapper<IEmployee[]>>(this.baseUrl + '/list', {})
       .pipe(
         catchError((error) => {
           if (error.error instanceof ErrorEvent) {

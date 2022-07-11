@@ -1,12 +1,14 @@
+import { Characters } from "../models/enums/characters.enum";
 import IEmployee from "../models/interface/employee.interface";
 import { IResponseWrapper } from "../models/interface/response-wrapper.interface";
 import employeeSchema from "../models/schema/employee.schema";
 import logging from "../util/config/logging";
+import helpers from "../util/helpers";
 
 const NAMESPACE = "Employee Service";
 
-async function findAll(): Promise<IResponseWrapper<IEmployee[]>> {
-  logging.info(NAMESPACE, "FindAll function called.");
+async function list(): Promise<IResponseWrapper<IEmployee[]>> {
+  logging.info(NAMESPACE, "List function called.");
   let responseWrapper = {} as IResponseWrapper<IEmployee[]>;
   try {
     responseWrapper.data = await employeeSchema.find();
@@ -15,7 +17,7 @@ async function findAll(): Promise<IResponseWrapper<IEmployee[]>> {
     responseWrapper.status = 200;
     return responseWrapper;
   } catch (error) {
-    logging.error(this.NAMESPACE, "Error while calling FindAll function.", String(error));
+    logging.error(this.NAMESPACE, "Error while calling List function.", String(error));
     responseWrapper.data = [];
     responseWrapper.success = false;
     responseWrapper.error = String(error);
@@ -28,6 +30,11 @@ async function create(employee: IEmployee): Promise<IResponseWrapper<IEmployee>>
   logging.info(NAMESPACE, "Create function called.", JSON.stringify(employee));
   let responseWrapper = {} as IResponseWrapper<IEmployee>;
   try {
+    employee._id = `${helpers.randomGenerator(2, Characters.ALPHABETS)}${helpers.randomGenerator(4, Characters.NUMBERS)}`;
+    const existingId = await employeeSchema.findById(employee._id);
+    if (!existingId) {
+      employee._id = `${helpers.randomGenerator(2, Characters.ALPHABETS)}${helpers.randomGenerator(4, Characters.NUMBERS)}`
+    }
     await employeeSchema.create(employee).then((result) => {
       responseWrapper.data = result;
       responseWrapper.success = true;
@@ -121,4 +128,4 @@ async function remove(employeeId: string): Promise<IResponseWrapper<IEmployee>> 
   }
 }
 
-export default { findAll, create, update, remove };
+export default { list, create, update, remove };

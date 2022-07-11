@@ -19,7 +19,7 @@
     <ng-container #list *ngIf="!loading && employees.length > 0">
         <div class="mt-2">
             <ul class="list-group">
-                <li class="list-group-item" *ngFor="let employee of employees; let i = index;">
+                <li class="list-group-item mb-4" *ngFor="let employee of employees; let i = index;">
                     ({{i+1}}).&nbsp;&nbsp;{{employee.firstName}}&nbsp;&nbsp;{{employee.lastName}}&nbsp;&nbsp;{{employee.contactNumber}}
                 </li>
             </ul>

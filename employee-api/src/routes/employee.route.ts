@@ -3,7 +3,7 @@ import controller from '../controllers/employee.controller';
 
 const router = express.Router();
 
-router.get('/find-all', controller.findAll);
+router.get('/list', controller.list);
 router.post('/create', controller.create);
 router.put('/update', controller.update);
 router.delete('/remove', controller.remove);

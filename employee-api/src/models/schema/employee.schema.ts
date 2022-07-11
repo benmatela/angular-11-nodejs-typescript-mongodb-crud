@@ -1,6 +1,4 @@
 import mongoose, { Schema } from "mongoose";
-import helpers from "../../util/helpers";
-import { Characters } from "../enums/characters.enum";
 import IEmployee from "../interface/employee.interface";
 
 const EmployeeSchema: Schema = new Schema(
@@ -12,8 +10,6 @@ const EmployeeSchema: Schema = new Schema(
       minlength: 6,
       maxlength: 6,
       index: true,
-      default: 
-        `${helpers.randomGenerator(2, Characters.ALPHABETS)}${helpers.randomGenerator(4, Characters.NUMBERS)}`
     },
     firstName: {
       type: String,
