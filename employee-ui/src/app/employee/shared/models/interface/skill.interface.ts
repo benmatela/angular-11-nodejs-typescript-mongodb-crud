@@ -1,5 +1,5 @@
 export interface ISkill {
     skill: string;
-    yearsOfExpirience: number;
+    yearsOfExperience: number;
     seniorityRating: string;
 }

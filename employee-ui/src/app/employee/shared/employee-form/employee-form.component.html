@@ -117,7 +117,8 @@
             <br>&nbsp;New Employee
         </button>
 
-        <button class="btn save-btn ml-2 mt-1 mr-2 mb-4" *ngIf="editMode" [disabled]="formGroup.invalid"> 
+        <button class="btn save-btn ml-2 mt-1 mr-2 mb-4" *ngIf="editMode" [disabled]="formGroup.invalid || skills.controls.length === 0"
+        (click)="onUpdateEmployee()"> 
             <span class="add-icon">&nbsp;+&nbsp;</span> Save changes to
             <br>&nbsp;Employee
         </button>

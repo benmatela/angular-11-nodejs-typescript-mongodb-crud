@@ -86,7 +86,7 @@ export class EmployeeFormComponent implements OnInit {
   }
 
   onCreateNewEmployee() {
-    if (this.formGroup.valid) {
+    if (!this.formGroup.invalid) {
       const formValue = this.formGroup.value;
       const newEmployee = {} as IEmployee;
       newEmployee.firstName = String(formValue.firstName);
@@ -99,6 +99,32 @@ export class EmployeeFormComponent implements OnInit {
 
       this.employeeService.create(newEmployee);
       this.formGroup.reset();
+    }
+  }
+
+  onUpdateEmployee() {
+    if (!this.formGroup.invalid) {
+      const formValue = this.formGroup.value;
+      const employeeToUpdate = {} as IEmployee;
+      employeeToUpdate._id = this.selectedEmployee._id;
+      employeeToUpdate.firstName = String(formValue.firstName);
+      employeeToUpdate.lastName = String(formValue.lastName);
+      employeeToUpdate.contactNumber = Number(formValue.contactNumber);
+      employeeToUpdate.dateOfBirth = String(formValue.dateOfBirth);
+      employeeToUpdate.emailAddress = String(formValue.email);
+      employeeToUpdate.address = JSON.stringify(formValue.address);
+      employeeToUpdate.skills = JSON.stringify(formValue.skills);
+
+      this.employeeService.update(employeeToUpdate);
+      this.formGroup.reset();
+      this.closeNav();
+    }
+  }
+
+  closeNav() {
+    const nav = document.getElementById('sidenav');
+    if (nav) {
+      nav.style.width = '0';
     }
   }
 

@@ -10,7 +10,7 @@ import { IEmployee } from './shared/models/interface/employee.interface';
 export class EmployeeComponent implements OnInit {
   employees: IEmployee[] = [];
   loading: boolean = true;
-  logoUrl: string = 'assets/Icon.JPG';
+  noEmployeesImgUrl: string = 'assets/Icon.JPG';
   editMode: boolean = false;
 
   constructor(private employeeService: EmployeeService) {}

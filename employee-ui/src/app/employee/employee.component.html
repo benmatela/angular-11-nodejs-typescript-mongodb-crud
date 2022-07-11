@@ -4,11 +4,11 @@
 
     <ng-container #emptyList *ngIf="!loading && employees.length === 0">
         <div class="text-center">
-            <img [src]="logoUrl" height="500" width="500">
+            <img [src]="noEmployeesImgUrl" height="500" width="500">
             <h5 class="font-weight-bold">There is nothing here.</h5>
-            <h5>Create a new employee by clicking the<br><span class="font-weight-bold">New Employee</span> button to
-                get
-                started.</h5>
+            <h5>Create a new employee by clicking the<br>
+                <span class="font-weight-bold">New Employee</span> button to get started.
+            </h5>
         </div>
     </ng-container>
 
