@@ -14,6 +14,7 @@ export class EmployeeService implements OnDestroy {
   private readonly baseUrl = environment.employeeAPI;
   errorMessage: string = '';
 
+  // Employee list store
   private employeesResponse$ = new BehaviorSubject<IResponseWrapper<IEmployee[]>>({
     data: [],
     success: false,
@@ -30,6 +31,13 @@ export class EmployeeService implements OnDestroy {
   };
   public readonly employeesResponse = this.employeesResponse$.asObservable();
 
+  // Selected Employee store
+  private selectedEmployeeResponse$ = new BehaviorSubject<IEmployee>({} as IEmployee);
+  private selectedEmployeeResponseStore: { selectedEmployee: IEmployee } = {
+    selectedEmployee: {} as IEmployee
+  };
+  public readonly selectedEmployeeResponse = this.selectedEmployeeResponse$.asObservable();
+
   constructor(private httpClient: HttpClient) {}
 
   /**
@@ -40,6 +48,16 @@ export class EmployeeService implements OnDestroy {
   private setEmployeesResponse(response: IResponseWrapper<IEmployee[]>): void {
     this.employeesResponseStore.response = response;
     this.employeesResponse$.next(response);
+  }
+
+  /**
+   * Keeps track of the selected Employee
+   * @param selectedEmployee 
+   * @returns void
+   */
+  public setSelectedEmployeeResponse(selectedEmployee: IEmployee): void {
+    this.selectedEmployeeResponseStore.selectedEmployee = selectedEmployee;
+    this.selectedEmployeeResponse$.next(selectedEmployee);
   }
 
   /**
@@ -69,13 +87,40 @@ export class EmployeeService implements OnDestroy {
   /**
    * Creates a new Employee.
    * 
-   * Updates employeesResponse on completion.
+   * Updates employeesResponse on success.
    * @param employee 
    * @returns void
    */
   create(employee: IEmployee): void {
     this.httpClient
       .post<IResponseWrapper<IEmployee[]>>(this.baseUrl + '/create', employee)
+      .pipe(
+        catchError((error) => {
+          if (error.error instanceof ErrorEvent) {
+            this.errorMessage = `Error: ${error.error.message}`;
+          } else {
+            this.errorMessage = this.getServerErrorMessage(error);
+          }
+          throw new Error(this.errorMessage);
+        })
+      )
+      .subscribe(res => {
+        if (res.success) {
+          this.list();
+        }
+      });
+  }
+
+  /**
+   * Updates an existing employee
+   * 
+   * Updates employeesResponse on success.
+   * @param employee 
+   * @returns void
+   */
+  update(employee: IEmployee): void {
+    this.httpClient
+      .put<IResponseWrapper<IEmployee>>(this.baseUrl + '/update', employee)
       .pipe(
         catchError((error) => {
           if (error.error instanceof ErrorEvent) {
@@ -120,5 +165,6 @@ export class EmployeeService implements OnDestroy {
 
   ngOnDestroy(): void {
     this.employeesResponse$.unsubscribe();
+    this.selectedEmployeeResponse$.unsubscribe();
   }
 }
