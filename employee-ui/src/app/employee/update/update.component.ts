@@ -1,4 +1,4 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormBuilder,
@@ -20,7 +20,7 @@ import { ISkill } from '../shared/models/interface/skill.interface';
   ></app-employee-form>`,
   styleUrls: ['./update.component.scss'],
 })
-export class UpdateComponent implements OnInit, AfterViewChecked {
+export class UpdateComponent implements OnInit {
   pageName: string = 'Edit Employee';
   updateEmployeeForm = {} as FormGroup;
   selectedEmployee = {} as IEmployee;
@@ -30,10 +30,6 @@ export class UpdateComponent implements OnInit, AfterViewChecked {
     private employeeService: EmployeeService,
     private ref: ChangeDetectorRef
   ) {}
-
-  ngAfterViewChecked(): void {
-    this.ref.detectChanges();
-  }
 
   ngOnInit(): void {
     this.employeeService.selectedEmployee.subscribe((res) => {

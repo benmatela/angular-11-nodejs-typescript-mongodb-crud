@@ -9,9 +9,8 @@ describe('CreateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateComponent ],
-      imports: [EmployeeModule],
-      providers: []
+      declarations: [CreateComponent],
+      imports: [EmployeeModule]
     })
     .compileComponents();
   });
