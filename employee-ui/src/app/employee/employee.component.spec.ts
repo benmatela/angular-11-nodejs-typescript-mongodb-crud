@@ -7,7 +7,6 @@ import { environment } from 'src/environments/environment';
 
 import { EmployeeComponent } from './employee.component';
 import { EmployeeModule } from './employee.module';
-import { EmployeeService } from './employee.service';
 import { IEmployee } from './shared/models/interface/employee.interface';
 import { IResponseWrapper } from './shared/models/interface/response-wrapper.interface';
 
@@ -16,16 +15,13 @@ describe('EmployeeComponent', () => {
   let fixture: ComponentFixture<EmployeeComponent>;
   let injector: TestBed;
   let httpMock: HttpTestingController;
-  let service: EmployeeService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [EmployeeComponent],
-      imports: [EmployeeModule, HttpClientTestingModule],
-      providers: [EmployeeService],
+      imports: [EmployeeModule, HttpClientTestingModule]
     }).compileComponents();
     injector = getTestBed();
-    service = injector.inject(EmployeeService);
     httpMock = injector.inject(HttpTestingController);
   });
 
@@ -78,11 +74,14 @@ describe('EmployeeComponent', () => {
   });
 
   it('should get a list of employees', async (done: any) => {
-    service.employeesResponse.subscribe((res) => {
+    component.employeeService.employeesResponse.subscribe((res) => {
       if (res && res.data && res.data.length > 0) {
-        expect(res.data).toEqual(responseWrapper.data);
         component.employees = res.data;
         component.loading = false;
+        component.employeeStore = component.employees;
+        expect(component.employees).toEqual(responseWrapper.data);
+        expect(component.employeeStore).toEqual(responseWrapper.data);
+        expect(component.loading).toEqual(false);
         fixture.detectChanges();
       }
     });

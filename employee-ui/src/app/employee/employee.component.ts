@@ -14,7 +14,7 @@ export class EmployeeComponent implements OnInit {
   noEmployeesImgUrl: string = 'assets/Icon.JPG';
   editMode: boolean = false;
 
-  constructor(private employeeService: EmployeeService) {}
+  constructor(public employeeService: EmployeeService) {}
 
   ngOnInit(): void {
     this.employeeService.list();

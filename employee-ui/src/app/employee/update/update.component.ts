@@ -26,14 +26,14 @@ export class UpdateComponent implements OnInit {
   selectedEmployee = {} as IEmployee;
 
   constructor(
-    private fb: FormBuilder,
-    private employeeService: EmployeeService,
+    public fb: FormBuilder,
+    public employeeService: EmployeeService,
     private ref: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.employeeService.selectedEmployee.subscribe((res) => {
-      if (res && res._id) {
+      if (res && res._id && res._id.length > 0) {
         this.selectedEmployee = res;
         this.updateEmployeeForm = this.fb.group({
           firstName: [this.selectedEmployee.firstName, [Validators.required]],
