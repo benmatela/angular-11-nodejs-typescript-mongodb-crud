@@ -112,11 +112,15 @@
 
     <button class="form-control mb-4" (click)="onAddNewSkill()">+ Add New Skill</button>
 
-    <div class="text-right">
+    <div class="text-right row">
         <button class="btn save-btn ml-2 mt-1 mr-2 mb-4" *ngIf="!editMode" [disabled]="formGroup.invalid"
         (click)="onCreateNewEmployee()"> 
             <span class="add-icon">&nbsp;+&nbsp;</span> Save and Add
             <br>&nbsp;New Employee
+        </button>
+
+        <button class="btn save-btn btn-danger ml-2 mt-1 mr-2 mb-4" *ngIf="editMode" (click)="onDeleteEmployee()"> 
+            <span class="add-icon">&nbsp;-&nbsp;</span> Delete
         </button>
 
         <button class="btn save-btn ml-2 mt-1 mr-2 mb-4" *ngIf="editMode" [disabled]="formGroup.invalid || skills.controls.length === 0"

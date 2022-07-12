@@ -139,6 +139,31 @@ export class EmployeeService implements OnDestroy {
   }
 
   /**
+   * Remove an employee by ID
+   * @param employeeId 
+   * @returns void
+   */
+  remove(employeeId: string): void {
+    this.httpClient
+      .delete<IResponseWrapper<IEmployee>>(`${this.baseUrl}/remove?employeeId=${employeeId}`)
+      .pipe(
+        catchError((error) => {
+          if (error.error instanceof ErrorEvent) {
+            this.errorMessage = `Error: ${error.error.message}`;
+          } else {
+            this.errorMessage = this.getServerErrorMessage(error);
+          }
+          throw new Error(this.errorMessage);
+        })
+      )
+      .subscribe(res => {
+        if (res.success) {
+          this.list();
+        }
+      });
+  }
+
+  /**
    * Takes in a HttpErrorResponse and creates a user friendly error.
    * @param error
    * @returns string

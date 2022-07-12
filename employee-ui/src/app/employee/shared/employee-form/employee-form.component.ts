@@ -141,6 +141,11 @@ export class EmployeeFormComponent implements OnInit {
     }
   }
 
+  onDeleteEmployee() {
+    this.employeeService.remove(this.selectedEmployee._id);
+    this.closeNav();
+  }
+
   closeNav() {
     const nav = document.getElementById('sidenav');
     if (nav) {
