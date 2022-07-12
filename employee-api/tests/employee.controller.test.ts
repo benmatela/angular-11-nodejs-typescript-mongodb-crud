@@ -18,7 +18,7 @@ describe("EmployeeController", () => {
         emailAddress: "jdoe@gmail.com",
         dateOfBirth: "1997-06-23",
         address: `{streetAddress":"34 Bishop Square","city":"Cape Town","postalCode":7925,"country":"South Africa"}`,
-        skills: `[{"skill":"C#","yearsOfExperience":0,"seniorityRating":"Intermediate"}]`,
+        skills: `[{"skill":"C#","yearsOfExperience":4,"seniorityRating":"Intermediate"}]`,
       };
 
       request(app.httpServer)
@@ -27,11 +27,12 @@ describe("EmployeeController", () => {
         .expect(201)
         .then((res) => {
           const responseWrapper: IResponseWrapper<IEmployee> = res.body;
-          employeeId = responseWrapper.data._id;
           expect(responseWrapper.success).to.be.true;
           expect(responseWrapper.error).to.be.equal("");
           expect(responseWrapper.status).to.be.equal(201);
-          expect(responseWrapper.data).to.be.a('object');
+          expect(responseWrapper.data).to.be.a("object");
+          expect(responseWrapper.data._id.length).to.be.equal(6);
+          employeeId = responseWrapper.data._id;
           done();
         })
         .catch((err) => done(err));
@@ -42,7 +43,7 @@ describe("EmployeeController", () => {
         firstName: "John",
         lastName: "Doe",
         address: `{streetAddress":"34 Bishop Square","city":"Cape Town","postalCode":7925,"country":"South Africa"}`,
-        skills: `[{"skill":"C#","yearsOfExperience":2,"seniorityRating":"Intermediate"}]`,
+        skills: `[{"skill":"C#","yearsOfExperience":4,"seniorityRating":"Intermediate"}]`,
       };
 
       request(app.httpServer)
@@ -54,14 +55,14 @@ describe("EmployeeController", () => {
           expect(responseWrapper.success).to.be.false;
           expect(responseWrapper.error).to.not.equal("");
           expect(responseWrapper.status).to.be.equal(500);
-          expect(responseWrapper.data).to.be.a('object');
+          expect(responseWrapper.data).to.be.a("object");
           done();
         })
         .catch((err) => done(err));
     });
   });
 
-  describe("LIST employees", () => {
+  describe("FIND employees", () => {
     it("should return a list of employees", (done) => {
       request(app.httpServer)
         .get("/api/v1/employee/list")
@@ -100,9 +101,26 @@ describe("EmployeeController", () => {
           expect(responseWrapper.success).to.be.true;
           expect(responseWrapper.error).to.be.equal("");
           expect(responseWrapper.status).to.be.equal(200);
-          expect(responseWrapper.data).to.be.a('object');
-          expect(responseWrapper.data.firstName).to.equal('Jane');
-          expect(responseWrapper.data.emailAddress).to.equal('jane@gmail.com');
+          expect(responseWrapper.data).to.be.a("object");
+          expect(responseWrapper.data.firstName).to.equal("Jane");
+          expect(responseWrapper.data.emailAddress).to.equal("jane@gmail.com");
+          done();
+        })
+        .catch((err) => done(err));
+    });
+  });
+
+  describe("DELETE employee", () => {
+    it("should delete an employee", (done) => {
+      request(app.httpServer)
+        .delete(`/api/v1/employee/remove?employeeId=${employeeId}`)
+        .expect(200)
+        .then((res) => {
+          const responseWrapper: IResponseWrapper<IEmployee> = res.body;
+          expect(responseWrapper.success).to.be.true;
+          expect(responseWrapper.error).to.be.equal("");
+          expect(responseWrapper.status).to.be.equal(200);
+          expect(responseWrapper.data).to.be.a("object");
           done();
         })
         .catch((err) => done(err));
