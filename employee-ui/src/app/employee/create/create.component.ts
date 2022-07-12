@@ -9,18 +9,11 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
   ></app-employee-form>`,
   styleUrls: ['./create.component.scss'],
 })
-export class CreateComponent implements OnInit, AfterViewChecked {
+export class CreateComponent implements OnInit {
   pageName: string = 'New Employee';
   createEmployeeForm = {} as FormGroup;
 
-  constructor(
-    private fb: FormBuilder,
-    private ref: ChangeDetectorRef
-    ) {}
-
-  ngAfterViewChecked(): void {
-    this.ref.detectChanges();
-  }
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.createEmployeeForm = this.fb.group({

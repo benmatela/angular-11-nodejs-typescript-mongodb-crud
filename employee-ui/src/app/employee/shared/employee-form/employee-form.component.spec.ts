@@ -1,6 +1,6 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder } from '@angular/forms';
-import { EmployeeModule } from '../../employee.module';
+import { ReactiveFormsModule } from '@angular/forms';
 import { EmployeeService } from '../../employee.service';
 
 import { EmployeeFormComponent } from './employee-form.component';
@@ -12,8 +12,8 @@ describe('EmployeeFormComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ EmployeeFormComponent ],
-      imports: [EmployeeModule],
-      providers: [ EmployeeService, FormBuilder ]
+      imports: [ReactiveFormsModule, HttpClientTestingModule],
+      providers: [ EmployeeService ]
     })
     .compileComponents();
   });
@@ -23,8 +23,4 @@ describe('EmployeeFormComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-
-  // it('should create', () => {
-  //   expect(component).toBeTruthy();
-  // });
 });

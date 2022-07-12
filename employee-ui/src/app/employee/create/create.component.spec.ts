@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { EmployeeModule } from '../employee.module';
-import { EmployeeService } from '../employee.service';
 
 import { CreateComponent } from './create.component';
 
@@ -11,7 +10,8 @@ describe('CreateComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ CreateComponent ],
-      imports: [EmployeeModule]
+      imports: [EmployeeModule],
+      providers: []
     })
     .compileComponents();
   });
@@ -24,5 +24,9 @@ describe('CreateComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should create empty form', () => {
+    expect(component.createEmployeeForm.invalid).toEqual(true);
   });
 });
