@@ -27,7 +27,7 @@ describe('EmployeeService', () => {
     httpMock = injector.inject(HttpTestingController);
   });
 
-  const responseWrapper: IResponseWrapper<IEmployee[]> = {
+  let responseWrapper: IResponseWrapper<IEmployee[]> = {
     data: [
       {
         _id: 'KO0987',
@@ -35,9 +35,9 @@ describe('EmployeeService', () => {
         lastName: 'Bravo',
         contactNumber: 630546017,
         dateOfBirth: '2022-07-12',
-        emailAddress: 'matelaben@gmail.com',
+        emailAddress: 'johny@gmail.com',
         address:
-          '{"streetAddress":"17 Bishop Road","city":"Cape Town","postalCode":7925,"country":"South Africa"}',
+          '{"streetAddress":"40 Bishop Road","city":"Cape Town","postalCode":7925,"country":"South Africa"}',
         skills:
           '[{"skill":"C#","yearsOfExperience":4,"seniorityRating":"Intermediate"}]',
         createdAt: '2022-07-11T10:07:32.608Z',
@@ -50,9 +50,9 @@ describe('EmployeeService', () => {
         lastName: 'Taylor',
         contactNumber: 630546017,
         dateOfBirth: '2022-07-12',
-        emailAddress: 'matelaben@gmail.com',
+        emailAddress: 'chuck@gmail.com',
         address:
-          '{"streetAddress":"17 Bishop Road","city":"Cape Town","postalCode":7935,"country":"South Africa"}',
+          '{"streetAddress":"57 Bishop Road","city":"Cape Town","postalCode":7935,"country":"South Africa"}',
         skills:
           '[{"skill":"Java","yearsOfExperience":3,"seniorityRating":"Intermediate"}]',
         createdAt: '2022-07-11T10:23:04.298Z',
@@ -69,7 +69,7 @@ describe('EmployeeService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('list() should return data', async (done: any) => {
+  it('list() should return a list of employees', async (done: any) => {
     service.list();
     service.employeesResponse.subscribe((res) => {
       if (res && res.data && res.data.length > 0) {
@@ -79,6 +79,90 @@ describe('EmployeeService', () => {
 
     const req = httpMock.expectOne(environment.employeeAPI + '/list');
     expect(req.request.method).toBe('GET');
+    req.flush(responseWrapper);
+    done();
+  });
+
+  it('create() should create new employee and return a list of employees', async (done: any) => {
+    const newEmployee = {
+      _id: 'KY8293',
+      firstName: 'Jane',
+      lastName: 'Doe',
+      contactNumber: 630546017,
+      dateOfBirth: '2022-07-12',
+      emailAddress: 'jane@gmail.com',
+      address:
+        '{"streetAddress":"40 Bishop Road","city":"Cape Town","postalCode":7925,"country":"South Africa"}',
+      skills:
+        '[{"skill":"C#","yearsOfExperience":4,"seniorityRating":"Intermediate"}]',
+      createdAt: '2022-07-11T10:07:32.608Z',
+      updatedAt: '2022-07-11T15:05:29.833Z',
+      __v: 0,
+    }
+
+    service.create(newEmployee);
+    service.employeesResponse.subscribe((res) => {
+      if (res && res.data && res.data.length > 0) {
+        responseWrapper = res;
+        expect(res.data.length).toEqual(3);
+      }
+    });
+
+    const req = httpMock.expectOne(environment.employeeAPI + '/create');
+    expect(req.request.method).toBe('POST');
+    req.flush(responseWrapper);
+    done();
+  });
+
+  it('update() should update existing employee lastname and return a list of employees', async (done: any) => {
+    const employeeToUpdate = {
+      _id: 'KY8293',
+      firstName: 'Jane',
+      lastName: 'Doe Bravo',
+      contactNumber: 630546017,
+      dateOfBirth: '2022-07-12',
+      emailAddress: 'jane@gmail.com',
+      address:
+        '{"streetAddress":"30 Bishop Park","city":"Cape Town","postalCode":7925,"country":"South Africa"}',
+      skills:
+        '[{"skill":"C#","yearsOfExperience":4,"seniorityRating":"Intermediate"}]',
+      createdAt: '2022-07-11T10:07:32.608Z',
+      updatedAt: '2022-07-11T15:05:29.833Z',
+      __v: 0,
+    }
+
+    service.update(employeeToUpdate);
+    service.employeesResponse.subscribe((res) => {
+      if (res && res.data && res.data.length > 0) {
+        responseWrapper = res;
+        const updatedEmployee = responseWrapper.data.find(e => e._id === employeeToUpdate._id);
+        expect(res.data.length).toEqual(3);
+        expect(updatedEmployee?.lastName).toEqual('Doe Bravo');
+        expect(updatedEmployee).not.toEqual(employeeToUpdate);
+      }
+    });
+
+    const req = httpMock.expectOne(environment.employeeAPI + '/update');
+    expect(req.request.method).toBe('PUT');
+    req.flush(responseWrapper);
+    done();
+  });
+
+  it('delete() should delete employee by ID and return a list of employees', async (done: any) => {
+    const employeeToDeleteID = 'KY8293';
+
+    service.remove(employeeToDeleteID);
+    service.employeesResponse.subscribe((res) => {
+      if (res && res.data && res.data.length > 0) {
+        responseWrapper = res;
+        const deletedEmployee = responseWrapper.data.find(e => e._id === employeeToDeleteID);
+        expect(res.data.length).toEqual(2);
+        expect(deletedEmployee).toEqual(undefined);
+      }
+    });
+
+    const req = httpMock.expectOne(environment.employeeAPI + `/remove?employeeId=${employeeToDeleteID}`);
+    expect(req.request.method).toBe('DELETE');
     req.flush(responseWrapper);
     done();
   });
