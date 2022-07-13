@@ -7,7 +7,6 @@ import {
 import { EmployeeService } from './employee.service';
 import { IEmployee } from '../employee/shared/models/interface/employee.interface';
 import { environment } from 'src/environments/environment';
-import { Router } from '@angular/router';
 import { IResponseWrapper } from '../employee/shared/models/interface/response-wrapper.interface';
 import { EmployeeModule } from './employee.module';
 
@@ -19,7 +18,7 @@ describe('EmployeeService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, EmployeeModule],
-      providers: [EmployeeService, { provide: Router, useClass: RouterStub }],
+      providers: [EmployeeService],
     });
 
     injector = getTestBed();
@@ -173,7 +172,4 @@ describe('EmployeeService', () => {
   });
 });
 
-class RouterStub {
-  url = 'employees';
-  navigate(commands: any[], extras?: any) {}
-}
+
