@@ -8,7 +8,7 @@ This project uses the following environment variables:
 |MONGO_AUTH_SOURCE           | Mongo DB value            | "employeedb"      |
 |MONGO_TABLE_NAME           | Mongo DB value            | "employeedb"      |
 |MONGO_HOST_NAME           | Mongo DB value            | 0.0.0.0      |
-|MONGO_PORT           | Mongo DB value            | 27017"     |
+|MONGO_PORT           | Mongo DB value            | 27017    |
 |MONGO_DB_USER           | Mongo DB value            | "dbuser"      |
 |MONGO_DB_USER_PASSWORD           | Mongo DB value            | "testing"      |
 |NODE_ENV           | Node server value            | "development"      |

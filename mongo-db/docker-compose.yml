@@ -1,0 +1,24 @@
+version: '3'
+services:
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - "ok8:/data/db"
+      - "./users_init.sh:/docker-entrypoint-initdb.d/users_init.sh:ro"
+    networks:
+      - employee-network
+    environment: 
+      MONGO_INITDB_ROOT_USERNAME: $MONGO_INITDB_ROOT_USERNAME
+      MONGO_INITDB_ROOT_PASSWORD: $MONGO_INITDB_ROOT_PASSWORD
+      MONGO_INITDB_DATABASE: $MONGO_INITDB_DATABASE
+      MONGO_DB_USER: $MONGO_DB_USER
+      MONGO_DB_USER_PASSWORD:  $MONGO_DB_USER_PASSWORD
+    env_file: 
+      - $ef
+networks:
+    employee-network:
+volumes: 
+    ok8:
