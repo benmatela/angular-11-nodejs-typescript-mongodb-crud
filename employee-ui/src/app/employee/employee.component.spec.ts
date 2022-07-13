@@ -80,47 +80,70 @@ describe('EmployeeComponent', () => {
         component.employees = res.data;
         component.loading = false;
         component.employeeStore = component.employees;
+        
         fixture.detectChanges();
         const employeeList = fixture.debugElement.queryAll(By.css('li#employee'));
         expect(component.employees.length).toEqual(2);
         expect(employeeList.length).toEqual(2);
+
+        const req = httpMock.expectOne(environment.employeeAPI + '/list');
+        expect(req.request.method).toBe('GET');
+        req.flush(responseWrapper);
       }
     });
-
-    const req = httpMock.expectOne(environment.employeeAPI + '/list');
-    expect(req.request.method).toBe('GET');
-    req.flush(responseWrapper);
     done();
   });
 
-  it('should open side nav with create form when clicking new employee button', () => {
+  it('should open side nav when calling openNav()', () => {
     component.openNav();
     fixture.detectChanges();
     const element: Element = fixture.debugElement.nativeElement.querySelector('div#sidenav');
     expect(element.clientWidth).toEqual(450);
+
     const createForm = fixture.debugElement.query(By.css('#createForm'));
     expect(createForm).toBeTruthy();
+
     const employeeForm = fixture.debugElement.query(By.css('#employeeForm'));
     expect(employeeForm).toBeTruthy();
+
+    let firstNameElement = fixture.debugElement.query(By.css('#firstName'));
+    let firstName = firstNameElement.nativeElement;
+    expect(firstName).toBeTruthy();
+    expect(firstName.value).toBe('');
   });
 
-  it('should close side nav when clicking the close button', () => {
+  it('should close side nav when calling closeNav()', () => {
     component.closeNav();
     fixture.detectChanges();
     const element: Element = fixture.debugElement.nativeElement.querySelector('div#sidenav');
     expect(element.clientWidth).toEqual(0);
   });
 
-  it('should open side nav with populated update fields when clicking on the employee', () => {
+  it('should close side nav when clicking close nav button', () => {
+    const onClickMock = spyOn(component, 'closeNav');
+    fixture.debugElement.query(By.css('.close-btn')).triggerEventHandler('click', null);
+    fixture.whenStable().then(() => {
+      expect(onClickMock).toHaveBeenCalled();
+
+      fixture.detectChanges();
+      const element: Element = fixture.debugElement.nativeElement.querySelector('div#sidenav');
+      expect(element.clientWidth).toEqual(0);
+    });
+  });
+
+  it('should open side nav with populated updateForm fields when clicking on the employee', () => {
     component.onUpdate(responseWrapper.data[0]);
     component.openNav();
     fixture.detectChanges();
     const element: Element = fixture.debugElement.nativeElement.querySelector('div#sidenav');
     expect(element.clientWidth).toEqual(450);
+
     const updateComponent: Element = fixture.debugElement.nativeElement.querySelector('#updateForm');
     expect(updateComponent).toBeTruthy();
+
     const employeeForm: Element = fixture.debugElement.nativeElement.querySelector('#employeeForm');
     expect(employeeForm).toBeTruthy();
+    
     let firstNameElement = fixture.debugElement.query(By.css('#firstName'));
     let firstName = firstNameElement.nativeElement;
     expect(firstName).toBeTruthy();

@@ -19,7 +19,7 @@
     <ng-container #list *ngIf="!loading && employees.length > 0">
         <div class="mt-2">
             <ul id="employees" class="list-group">
-                <li id="employee" class="list-group-item mb-4" *ngFor="let employee of employees; let i = index;" (click)="onUpdate(employee)">
+                <li id="{{'employee'+i}}" class="list-group-item mb-4" *ngFor="let employee of employees; let i = index;" (click)="onUpdate(employee)">
                     ({{i+1}}).&nbsp;&nbsp;{{employee.firstName}}&nbsp;&nbsp;{{employee.lastName}}&nbsp;&nbsp;{{employee.contactNumber}}
                 </li>
             </ul>
@@ -28,7 +28,7 @@
 </div>
 
 <div id="sidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
+    <a href="javascript:void(0)" class="close-btn" (click)="closeNav()">&times;</a>
     <div class="container">
         <app-update *ngIf="editMode" id="updateForm"></app-update>
 
