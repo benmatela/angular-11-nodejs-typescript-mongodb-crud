@@ -65,7 +65,7 @@ describe('EmployeeService', () => {
     status: 0,
   };
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(service).toBeTruthy();
   });
 
@@ -74,6 +74,7 @@ describe('EmployeeService', () => {
     service.employeesResponse.subscribe((res) => {
       if (res && res.data && res.data.length > 0) {
         expect(res.data).toEqual(responseWrapper.data);
+        expect(res.data.length).toEqual(2);
       }
     });
 

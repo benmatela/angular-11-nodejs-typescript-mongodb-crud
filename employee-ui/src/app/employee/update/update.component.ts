@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormBuilder,
@@ -28,7 +28,6 @@ export class UpdateComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     public employeeService: EmployeeService,
-    private ref: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
