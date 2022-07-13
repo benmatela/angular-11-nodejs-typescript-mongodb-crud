@@ -73,7 +73,7 @@
 
     <p class="subheader">Skills</p>
     <div formArrayName="skills" *ngFor="let s of skills.controls; let i = index">
-        <div class="row" [formGroupName]="i">
+        <div class="row" [formGroupName]="i" id="{{'formGroup'+i}}">
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="skill">Skill</label>

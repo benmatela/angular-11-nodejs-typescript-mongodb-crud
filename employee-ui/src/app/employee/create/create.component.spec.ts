@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { EmployeeModule } from '../employee.module';
 
 import { CreateComponent } from './create.component';
@@ -27,5 +28,9 @@ describe('CreateComponent', () => {
 
   it('should create empty form', () => {
     expect(component.createEmployeeForm.invalid).toEqual(true);
+    
+    let skillsElement = fixture.debugElement.query(By.css('#formGroup0'));
+    let skills = skillsElement.nativeElement;
+    expect(skills).toBeTruthy();
   });
 });

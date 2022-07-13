@@ -1,5 +1,4 @@
-import {
-  HttpClientTestingModule,} from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -16,7 +15,7 @@ describe('EmployeeComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [EmployeeComponent],
-      imports: [EmployeeModule, HttpClientTestingModule]
+      imports: [EmployeeModule, HttpClientTestingModule],
     }).compileComponents();
     injector = getTestBed();
   });
@@ -71,7 +70,7 @@ describe('EmployeeComponent', () => {
 
   it('should get and display a list of employees', (done: any) => {
     component.employeeService.setEmployeesResponse(responseWrapper);
-    component.employeeService.employeesResponse.subscribe(res => {
+    component.employeeService.employeesResponse.subscribe((res) => {
       if (res && res.data.length > 0) {
         component.employees = res.data;
         expect(component.employees.length).toEqual(2);
@@ -84,7 +83,8 @@ describe('EmployeeComponent', () => {
   it('should open side nav when calling openNav()', () => {
     component.openNav();
     fixture.detectChanges();
-    const element: Element = fixture.debugElement.nativeElement.querySelector('div#sidenav');
+    const element: Element =
+      fixture.debugElement.nativeElement.querySelector('div#sidenav');
     expect(element.clientWidth).toEqual(450);
 
     const createForm = fixture.debugElement.query(By.css('#createForm'));
@@ -102,19 +102,24 @@ describe('EmployeeComponent', () => {
   it('should close side nav when calling closeNav()', () => {
     component.closeNav();
     fixture.detectChanges();
-    const element: Element = fixture.debugElement.nativeElement.querySelector('div#sidenav');
+    const element: Element =
+      fixture.debugElement.nativeElement.querySelector('div#sidenav');
     expect(element.clientWidth).toEqual(0);
   });
 
   it('should close side nav when clicking close nav button', (done: any) => {
     const onClickMock = spyOn(component, 'closeNav');
-    fixture.debugElement.query(By.css('.close-btn')).triggerEventHandler('click', null);
     fixture.whenStable().then(() => {
-      expect(onClickMock).toHaveBeenCalled();
-
-      fixture.detectChanges();
-      const element: Element = fixture.debugElement.nativeElement.querySelector('div#sidenav');
-      expect(element.clientWidth).toEqual(0);
+      const btn = fixture.debugElement.query(By.css('.close-btn'));
+      if (btn) {
+        fixture.debugElement.query(By.css('.close-btn')).triggerEventHandler('click', null);
+        expect(onClickMock).toHaveBeenCalled();
+        const element: Element = fixture.debugElement.nativeElement.querySelector('div#sidenav');
+        fixture.detectChanges();
+        expect(element.clientWidth).toEqual(0);
+      } else {
+        expect(component.employees.length).toEqual(0);
+      }
     });
     done();
   });
@@ -129,13 +134,13 @@ describe('EmployeeComponent', () => {
     const updateComponent: Element = fixture.debugElement.nativeElement.querySelector('#updateForm');
     expect(updateComponent).toBeTruthy();
 
-    const employeeForm: Element = fixture.debugElement.nativeElement.querySelector('#employeeForm');
-    expect(employeeForm).toBeTruthy();
-    
     let firstNameElement = fixture.debugElement.query(By.css('#firstName'));
     let firstName = firstNameElement.nativeElement;
     expect(firstName).toBeTruthy();
     expect(firstName.value).toBe('Johnny');
-  });
 
+    let skillsElement = fixture.debugElement.query(By.css('#formGroup0'));
+    let skills = skillsElement.nativeElement;
+    expect(skills).toBeTruthy();
+  });
 });

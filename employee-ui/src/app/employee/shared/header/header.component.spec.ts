@@ -45,15 +45,21 @@ describe('HeaderComponent', () => {
     }
   });
 
-  it('should open side nav when clicking new employee button', () => {
-    fixture.detectChanges();
+  it('should open side nav when clicking new employee button', (done: any) => {
+    const onClickMock = spyOn(component, 'openNav');
     fixture.whenStable().then(() => {
-      const onClickMock = spyOn(component, 'openNav');
-      fixture.debugElement.query(By.css('#newEmployeeBtn')).triggerEventHandler('click', null);
-      expect(onClickMock).toHaveBeenCalled();
-      const element: Element = fixture.debugElement.nativeElement.querySelector('div#sidenav');
-      expect(element.clientWidth).toEqual(450);
+      const btn = fixture.debugElement.query(By.css('.close-btn'));
+      if (btn) {
+        fixture.debugElement.query(By.css('#newEmployeeBtn')).triggerEventHandler('click', null);
+        expect(onClickMock).toHaveBeenCalled();
+        const element: Element = fixture.debugElement.nativeElement.querySelector('div#sidenav');
+        fixture.detectChanges();
+        expect(element.clientWidth).toEqual(450);
+      } else {
+        expect(component.employees.length).toEqual(0);
+      }
     });
+    done();
   });
 
 });
