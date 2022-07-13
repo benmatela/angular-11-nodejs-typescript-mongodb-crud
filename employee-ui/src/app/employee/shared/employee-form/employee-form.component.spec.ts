@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { EmployeeModule } from '../../employee.module';
 
 import { EmployeeFormComponent } from './employee-form.component';
 
@@ -9,8 +8,7 @@ describe('EmployeeFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EmployeeFormComponent ],
-      imports: [EmployeeModule]
+      declarations: [EmployeeFormComponent]
     })
     .compileComponents();
   });

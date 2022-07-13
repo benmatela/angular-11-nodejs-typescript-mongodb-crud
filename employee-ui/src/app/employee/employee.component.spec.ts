@@ -1,7 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
 
 import { EmployeeComponent } from './employee.component';
 import { EmployeeModule } from './employee.module';
@@ -17,7 +16,6 @@ describe('EmployeeComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [EmployeeComponent],
       imports: [EmployeeModule, HttpClientTestingModule],
-      providers: [{ provide: Router, useClass: RouterStub }]
     }).compileComponents();
     injector = getTestBed();
   });
@@ -146,8 +144,3 @@ describe('EmployeeComponent', () => {
     expect(skills).toBeTruthy();
   });
 });
-
-class RouterStub {
-  url = 'employees';
-  navigate(commands: any[], extras?: any) {}
-}

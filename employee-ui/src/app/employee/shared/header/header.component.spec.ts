@@ -52,6 +52,7 @@ describe('HeaderComponent', () => {
       if (btn) {
         fixture.debugElement.query(By.css('#newEmployeeBtn')).triggerEventHandler('click', null);
         expect(onClickMock).toHaveBeenCalled();
+
         const element: Element = fixture.debugElement.nativeElement.querySelector('div#sidenav');
         fixture.detectChanges();
         expect(element.clientWidth).toEqual(450);
