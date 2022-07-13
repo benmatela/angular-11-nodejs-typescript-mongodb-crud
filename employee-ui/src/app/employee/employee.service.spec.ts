@@ -148,7 +148,7 @@ describe('EmployeeService', () => {
     done();
   });
 
-  it('delete() should delete employee by ID and return a list of employees', async (done: any) => {
+  it('remove() should remove employee by ID and return a list of employees', async (done: any) => {
     const employeeToDeleteID = 'KY8293';
 
     service.remove(employeeToDeleteID);

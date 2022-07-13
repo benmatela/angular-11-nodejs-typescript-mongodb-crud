@@ -5,7 +5,7 @@ echo "--------> Creating new MongoDB, running the API and the frontend <--------
 
 cd mongo-db
 echo "Creating MongoDB instance.."
-nohup MONGO_DB_USER=dbuser MONGO_DB_USER_PASSWORD=testing d=admin MONGO_INITDB_ROOT_USERNAME=root MONGO_INITDB_ROOT_PASSWORD=testing ef=.env docker-compose up -d --remove-orphans &
+MONGO_DB_USER=dbuser MONGO_DB_USER_PASSWORD=testing d=admin MONGO_INITDB_ROOT_USERNAME=root MONGO_INITDB_ROOT_PASSWORD=testing ef=.env docker-compose up -d --remove-orphans &
 wait
 
 
