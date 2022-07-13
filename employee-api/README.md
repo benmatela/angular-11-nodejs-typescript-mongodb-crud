@@ -55,7 +55,6 @@ The folder structure of this app is explained below:
 | **src**/server.ts         | Entry point to express app                                                               |
 | **tests**/         | Tests for the app           
 | package.json             | Contains npm dependencies as well as [build scripts](#what-if-a-library-isnt-on-definitelytyped)   | tsconfig.json            | Config settings for compiling source code only written in TypeScript    
-| tslint.json              | Config settings for TSLint code style checking                                                |
 
 ## Building the project
 ### Configuring TypeScript compilation
