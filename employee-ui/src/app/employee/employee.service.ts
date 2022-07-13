@@ -45,7 +45,7 @@ export class EmployeeService implements OnDestroy {
    * @param response 
    * @returns void
    */
-  private setEmployeesResponse(response: IResponseWrapper<IEmployee[]>): void {
+  setEmployeesResponse(response: IResponseWrapper<IEmployee[]>): void {
     this.employeesResponseStore.response = response;
     this.employeesResponse$.next(response);
   }

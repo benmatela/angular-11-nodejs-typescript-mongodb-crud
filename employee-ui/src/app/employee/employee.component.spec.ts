@@ -1,10 +1,7 @@
 import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
+  HttpClientTestingModule,} from '@angular/common/http/testing';
 import { ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { environment } from 'src/environments/environment';
 
 import { EmployeeComponent } from './employee.component';
 import { EmployeeModule } from './employee.module';
@@ -15,7 +12,6 @@ describe('EmployeeComponent', () => {
   let component: EmployeeComponent;
   let fixture: ComponentFixture<EmployeeComponent>;
   let injector: TestBed;
-  let httpMock: HttpTestingController;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -23,7 +19,6 @@ describe('EmployeeComponent', () => {
       imports: [EmployeeModule, HttpClientTestingModule]
     }).compileComponents();
     injector = getTestBed();
-    httpMock = injector.inject(HttpTestingController);
   });
 
   beforeEach(() => {
@@ -74,23 +69,15 @@ describe('EmployeeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should get and display a list of employees', async (done: any) => {
-    component.employeeService.employeesResponse.subscribe((res) => {
-      if (res && res.data && res.data.length > 0) {
+  it('should get and display a list of employees', (done: any) => {
+    component.employeeService.setEmployeesResponse(responseWrapper);
+    component.employeeService.employeesResponse.subscribe(res => {
+      if (res && res.data.length > 0) {
         component.employees = res.data;
-        component.loading = false;
-        component.employeeStore = component.employees;
-        
-        fixture.detectChanges();
-        const employeeList = fixture.debugElement.queryAll(By.css('li#employee'));
         expect(component.employees.length).toEqual(2);
-        expect(employeeList.length).toEqual(2);
-
-        const req = httpMock.expectOne(environment.employeeAPI + '/list');
-        expect(req.request.method).toBe('GET');
-        req.flush(responseWrapper);
       }
     });
+    fixture.detectChanges();
     done();
   });
 
@@ -119,7 +106,7 @@ describe('EmployeeComponent', () => {
     expect(element.clientWidth).toEqual(0);
   });
 
-  it('should close side nav when clicking close nav button', () => {
+  it('should close side nav when clicking close nav button', (done: any) => {
     const onClickMock = spyOn(component, 'closeNav');
     fixture.debugElement.query(By.css('.close-btn')).triggerEventHandler('click', null);
     fixture.whenStable().then(() => {
@@ -129,9 +116,10 @@ describe('EmployeeComponent', () => {
       const element: Element = fixture.debugElement.nativeElement.querySelector('div#sidenav');
       expect(element.clientWidth).toEqual(0);
     });
+    done();
   });
 
-  it('should open side nav with populated updateForm fields when clicking on the employee', () => {
+  it('should open side nav with populated updateForm fields when clicking onUpdate()', () => {
     component.onUpdate(responseWrapper.data[0]);
     component.openNav();
     fixture.detectChanges();
