@@ -32,7 +32,7 @@ describe('EmployeeService', () => {
         _id: 'KO0987',
         firstName: 'Johnny',
         lastName: 'Bravo',
-        contactNumber: 630546017,
+        contactNumber: 6455345345,
         dateOfBirth: '2022-07-12',
         emailAddress: 'johny@gmail.com',
         address:
@@ -47,7 +47,7 @@ describe('EmployeeService', () => {
         _id: 'RT0786',
         firstName: 'Chuck',
         lastName: 'Taylor',
-        contactNumber: 630546017,
+        contactNumber: 34534534,
         dateOfBirth: '2022-07-12',
         emailAddress: 'chuck@gmail.com',
         address:
@@ -88,7 +88,7 @@ describe('EmployeeService', () => {
       _id: 'KY8293',
       firstName: 'Jane',
       lastName: 'Doe',
-      contactNumber: 630546017,
+      contactNumber: 56343543,
       dateOfBirth: '2022-07-12',
       emailAddress: 'jane@gmail.com',
       address:
@@ -119,7 +119,7 @@ describe('EmployeeService', () => {
       _id: 'KY8293',
       firstName: 'Jane',
       lastName: 'Doe Bravo',
-      contactNumber: 630546017,
+      contactNumber: 5634564563,
       dateOfBirth: '2022-07-12',
       emailAddress: 'jane@gmail.com',
       address:
